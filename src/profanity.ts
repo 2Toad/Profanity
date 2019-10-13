@@ -14,7 +14,7 @@ export class Profanity {
     const file = readFileSync(resolve(__dirname, 'words.txt'), 'utf8');
     this.words = file.split('\n');
 
-    this.compileRegEx();
+    this.buildRegex();
   }
 
   exists(text: string): boolean {
@@ -27,15 +27,15 @@ export class Profanity {
 
   removeWords(words: string[]): void {
     this.words = this.words.filter(x => !words.includes(x));
-    this.compileRegEx();
+    this.buildRegex();
   }
 
   addWords(words: string[]): void {
     this.words = this.words.concat(words);
-    this.compileRegEx();
+    this.buildRegex();
   }
 
-  private compileRegEx(): void {
+  private buildRegex(): void {
     const pattern = `${this.options.wholeWord ? '\\b' : ''}(${this.words.join('|')})${this.options.wholeWord ? '\\b' : ''}`;
     this.regex = new RegExp(pattern, 'i');
   }
