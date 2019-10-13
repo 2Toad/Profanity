@@ -8,6 +8,10 @@ describe('Profanity', () => {
       expect(profanity.exists('Should we censor the word butt?')).to.equal(true);
     });
 
+    it('should return true when profanity exists as a single word', () => {
+      expect(profanity.exists('butt')).to.equal(true);
+    });
+
     it('should return false when concatenated profanity exists in a sentence', () => {
       expect(profanity.exists('Should we censor the word buttArse?')).to.equal(false);
     });
@@ -21,11 +25,7 @@ describe('Profanity', () => {
     });
 
     it('should return false when profanity does not exist', () => {
-      expect(profanity.exists('Should we censor the word buttocks?')).to.equal(false);
-    });
-
-    it('should return true when profanity exists as a single word', () => {
-      expect(profanity.exists('butt')).to.equal(true);
+      expect(profanity.exists('Should we censor the word 2Toad?')).to.equal(false);
     });
   });
 
@@ -47,7 +47,7 @@ describe('Profanity', () => {
     });
 
     it('should return false when profanity does not exist', () => {
-      expect(customProfanity.exists('Should we censor the word buttocks?')).to.equal(false);
+      expect(customProfanity.exists('Should we censor the word 2Toad?')).to.equal(false);
     });
 
     it('should return true when concatenated profanity exists as a single word', () => {
@@ -76,7 +76,7 @@ describe('Profanity', () => {
     });
 
     it('should not alter sentence without profanity', () => {
-      const original = 'Should we censor the word buttocks?';
+      const original = 'Should we censor the word 2Toad?';
       const censored = profanity.censor(original);
       expect(censored).to.equal(original);
     });

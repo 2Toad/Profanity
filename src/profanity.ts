@@ -4,9 +4,9 @@ import { readFileSync } from 'fs';
 import { ProfanityOptions } from './profanity-options';
 
 export class Profanity {
-  options: ProfanityOptions;
+  private regex: RegExp;
   words: string[];
-  regEx: RegExp;
+  options: ProfanityOptions;
 
   constructor(options?: ProfanityOptions) {
     this.options = options || new ProfanityOptions();
@@ -18,11 +18,11 @@ export class Profanity {
   }
 
   exists(text: string): boolean {
-    return this.regEx.test(text);
+    return this.regex.test(text);
   }
 
   censor(text: string): string {
-    return text.replace(this.regEx, this.options.grawlix);
+    return text.replace(this.regex, this.options.grawlix);
   }
 
   removeWords(words: string[]): void {
@@ -37,7 +37,7 @@ export class Profanity {
 
   private compileRegEx(): void {
     const pattern = `${this.options.wholeWord ? '\\b' : ''}(${this.words.join('|')})${this.options.wholeWord ? '\\b' : ''}`;
-    this.regEx = new RegExp(pattern, 'gi');
+    this.regex = new RegExp(pattern, 'i');
   }
 }
 

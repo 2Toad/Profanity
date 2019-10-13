@@ -11,10 +11,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "dev": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "prepare": "npm run build",
-    "build": "npm run lint && tsc",
+    "build": "npm run lint && npm run test && tsc && cp src/words.txt dist",
     "deploy": "npm publish"
   },
   "repository": {
