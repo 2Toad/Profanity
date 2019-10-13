@@ -1,0 +1,38 @@
+{
+  "name": "@2toad/Profanity",
+  "version": "1.0.0",
+  "description": "A JavaScript profanity filter",
+  "homepage": "https://github.com/2Toad/Profanity",
+  "author": "2Toad",
+  "license": "MIT",
+  "engines": {
+    "node": "12.10.0"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "prepare": "npm run build",
+    "build": "npm run lint && tsc",
+    "deploy": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:2Toad/Profanity.git"
+  },
+  "keywords": [
+    "profanity, profane, bad words, obscene, cussing"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.12",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  }
+}
