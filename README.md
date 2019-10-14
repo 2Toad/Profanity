@@ -26,7 +26,7 @@ profanity.exists('I like big glutes and I cannot lie');
 // false
 
 profanity.censor('I like big butts (aka arses) and I cannot lie');
-// I like big @#$%&! (and @#$%&!) and I cannot lie
+// I like big @#$%&! (aka @#$%&!) and I cannot lie
 ```
 
 ## Options
