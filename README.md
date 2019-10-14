@@ -1,5 +1,9 @@
 # Profanity
 
+[![GitHub version](https://badge.fury.io/gh/2Toad%2FProfanity.svg)](https://badge.fury.io/gh/2Toad%2FProfanity)
+[![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
+[![Build Status](https://travis-ci.org/2Toad/Profanity.svg?branch=master)](https://travis-ci.org/2Toad/Profanity)
+
 A JavaScript profanity filter
 
 ## Getting Started
