@@ -18,6 +18,7 @@ export class Profanity {
   }
 
   exists(text: string): boolean {
+    this.regex.lastIndex = 0;
     return this.regex.test(text);
   }
 
@@ -37,7 +38,7 @@ export class Profanity {
 
   private buildRegex(): void {
     const pattern = `${this.options.wholeWord ? '\\b' : ''}(${this.words.join('|')})${this.options.wholeWord ? '\\b' : ''}`;
-    this.regex = new RegExp(pattern, 'i');
+    this.regex = new RegExp(pattern, 'ig');
   }
 }
 
