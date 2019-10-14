@@ -22,10 +22,10 @@ import { profanity } from '@2toad/profanity';
 profanity.exists('I like big butts and I cannot lie');
 // true
 
-profanity.exists('I like big buttocks and I cannot lie');
+profanity.exists('I like big glutes and I cannot lie');
 // false
 
-profanity.censor('I like big butts (and ar5e) and I cannot lie');
+profanity.censor('I like big butts (aka arses) and I cannot lie');
 // I like big @#$%&! (and @#$%&!) and I cannot lie
 ```
 
