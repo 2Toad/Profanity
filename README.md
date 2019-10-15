@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
 [![Build Status](https://travis-ci.org/2Toad/Profanity.svg?branch=master)](https://travis-ci.org/2Toad/Profanity)
 
-A JavaScript profanity filter
+A JavaScript profanity filter (with TypeScript support)
 
 ## Getting Started
 
@@ -18,6 +18,9 @@ npm i @2toad/profanity
 
 ```
 import { profanity } from '@2toad/profanity';
+// or
+var profanity = require('@2toad/profanity').profanity;
+
 
 profanity.exists('I like big butts and I cannot lie');
 // true
