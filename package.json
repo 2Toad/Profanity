@@ -23,7 +23,8 @@
     "url": "git+ssh://git@github.com:2Toad/Profanity.git"
   },
   "keywords": [
-    "profanity, profane, bad words, obscene, cussing"
+    "profanity", "profane", "obscene", "obscenity", "obscenities", "cussing", "cursing",
+    "swearing", "swearwords", "vulgar", "vulgarity", "bad words", "bad language", "dirty words"
   ],
   "dependencies": {},
   "devDependencies": {
