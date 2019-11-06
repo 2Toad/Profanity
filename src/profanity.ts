@@ -12,7 +12,7 @@ export class Profanity {
     this.options = options || new ProfanityOptions();
 
     const file = readFileSync(resolve(__dirname, 'words.txt'), 'utf8');
-    this.words = file.split('\n');
+    this.words = file.split('\n').filter(x => x);
 
     this.buildRegex();
   }
