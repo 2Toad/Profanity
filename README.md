@@ -33,7 +33,7 @@ profanity.censor('I like big butts (aka arses) and I cannot lie');
 ```
 
 ## Options
-There are several configurable options you can set when you create an instance of the Profanity class:
+Create an instance of the Profanity class to change the default options:
 
 ```
 import { Profanity, ProfanityOptions } from '@2toad/profanity';
@@ -49,14 +49,14 @@ const profanity = new Profanity(options);
 
 By default this is set to `true`, so profanity only matches on whole words:
 ```
-profanity.exists('Two profane words joined: buttsAr5e');
+profanity.exists('Arsenic is poisonous but not profane');
 // false
 ```
 
-Setting this to `false`, results in:
+Setting this to `false`, results in partial word matches:
 ```
-profanity.exists('Two profane words joined: buttsAr5e');
-// true
+profanity.exists('Arsenic is poisonous but not profane');
+// true (matched on arse)
 ```
 
 ### grawlix
@@ -75,12 +75,27 @@ profanity.censor('I like big butts and I cannot lie');
 
 ## Customize the word list
 
-Remove words:
-```
-profanity.removeWords(['butt', 'ar5e']);
-```
-
 Add words:
 ```
 profanity.addWords(['aardvark', 'zebra']);
+```
+
+Remove words:
+```
+profanity.removeWords(['butt', 'arse']);
+```
+
+## Whitelist
+The whitelist allows you to specify words that are always ignored by the profanity filter.
+
+>This can be useful if you want to turn partial word matching on (`wholeWord = true`), so combined words are caught (e.g., arselicker), while specific words you add to the whitelist are ignored (e.g., arsenic).
+
+Add words to the whitelist:
+```
+profanity.whitelist.addWords(['arsenic', 'buttress']);
+```
+
+Remove words from the whitelist:
+```
+profanity.whitelist.removeWords(['arsenic', 'buttress']);
 ```

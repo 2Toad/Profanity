@@ -1,20 +1,21 @@
 import { resolve } from 'path';
-import { readFileSync } from 'fs';
 
 import { ProfanityOptions } from './profanity-options';
+import { List } from './list';
 
 export class Profanity {
-  private regex: RegExp;
-  words: string[];
   options: ProfanityOptions;
+  whitelist: List;
+  private blacklist: List;
+  private regex: RegExp;
 
   constructor(options?: ProfanityOptions) {
     this.options = options || new ProfanityOptions();
 
-    const file = readFileSync(resolve(__dirname, 'words.txt'), 'utf8');
-    this.words = file.split('\n').filter(x => x);
+    this.whitelist = new List(() => this.buildRegex());
+    this.blacklist = new List(() => this.buildRegex());
 
-    this.buildRegex();
+    this.blacklist.loadFile(resolve(__dirname, 'words.txt'));
   }
 
   exists(text: string): boolean {
@@ -26,19 +27,18 @@ export class Profanity {
     return text.replace(this.regex, this.options.grawlix);
   }
 
-  removeWords(words: string[]): void {
-    this.words = this.words.filter(x => !words.includes(x));
-    this.buildRegex();
+  addWords(words: string[]): void {
+    this.blacklist.addWords(words);
   }
 
-  addWords(words: string[]): void {
-    this.words = this.words.concat(words);
-    this.buildRegex();
+  removeWords(words: string[]): void {
+    this.blacklist.removeWords(words);
   }
 
   private buildRegex(): void {
-    const pattern = `${this.options.wholeWord ? '\\b' : ''}(${this.words.join('|')})${this.options.wholeWord ? '\\b' : ''}`;
-    this.regex = new RegExp(pattern, 'ig');
+    const blacklistPattern = `${this.options.wholeWord ? '\\b' : ''}(${this.blacklist.words.join('|')})${this.options.wholeWord ? '\\b' : ''}`;
+    const whitelistPattern = this.whitelist.empty ? '' : `(?!${this.whitelist.words.join('|')})`;
+    this.regex = new RegExp(whitelistPattern + blacklistPattern, 'ig');
   }
 }
 
