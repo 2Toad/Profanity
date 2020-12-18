@@ -4,6 +4,6 @@ export class ProfanityOptions {
 
   constructor() {
     this.wholeWord = true;
-    this.grawlix = '@#$%&!';
+    this.grawlix = "@#$%&!";
   }
 }
