@@ -12,7 +12,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc -w",
-    "lint": "./node_modules/.bin/eslint src",
+    "lint": "npx eslint src",
+    "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "prepare": "npm run build",
     "build": "npm run lint && npm run test && tsc && cp src/words.txt dist",
@@ -47,8 +48,22 @@
     "@typescript-eslint/parser": "^4.10.0",
     "chai": "^4.2.0",
     "eslint": "^7.15.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
     "mocha": "^8.2.1",
+    "prettier": "2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   }
 }

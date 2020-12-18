@@ -1,2 +1,2 @@
-export * from './profanity';
-export * from './profanity-options';
+export * from "./profanity";
+export * from "./profanity-options";

@@ -1,7 +1,7 @@
-import { resolve } from 'path';
+import { resolve } from "path";
 
-import { ProfanityOptions } from './profanity-options';
-import { List } from './list';
+import { ProfanityOptions } from "./profanity-options";
+import { List } from "./list";
 
 export class Profanity {
   options: ProfanityOptions;
@@ -15,7 +15,7 @@ export class Profanity {
     this.whitelist = new List(() => this.buildRegex());
     this.blacklist = new List(() => this.buildRegex());
 
-    this.blacklist.loadFile(resolve(__dirname, 'words.txt'));
+    this.blacklist.loadFile(resolve(__dirname, "words.txt"));
   }
 
   exists(text: string): boolean {
@@ -36,9 +36,9 @@ export class Profanity {
   }
 
   private buildRegex(): void {
-    const blacklistPattern = `${this.options.wholeWord ? '\\b' : ''}(${this.blacklist.words.join('|')})${this.options.wholeWord ? '\\b' : ''}`;
-    const whitelistPattern = this.whitelist.empty ? '' : `(?!${this.whitelist.words.join('|')})`;
-    this.regex = new RegExp(whitelistPattern + blacklistPattern, 'ig');
+    const blacklistPattern = `${this.options.wholeWord ? "\\b" : ""}(${this.blacklist.words.join("|")})${this.options.wholeWord ? "\\b" : ""}`;
+    const whitelistPattern = this.whitelist.empty ? "" : `(?!${this.whitelist.words.join("|")})`;
+    this.regex = new RegExp(whitelistPattern + blacklistPattern, "ig");
   }
 }
 
