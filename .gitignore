@@ -11,6 +11,9 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# cache
+.eslintcache
+
 # System Files
 .DS_Store
 Thumbs.db
