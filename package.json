@@ -12,7 +12,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc -w",
-    "lint": "./node_modules/.bin/eslint src",
+    "lint": "npx eslint src",
+    "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "prepare": "npm run build",
     "build": "npm run lint && npm run test && tsc && cp src/words.txt dist",
@@ -48,6 +49,7 @@
     "chai": "^4.2.0",
     "eslint": "^7.15.0",
     "mocha": "^8.2.1",
+    "prettier": "2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }

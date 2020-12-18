@@ -1,0 +1,27 @@
+# configs
+.eslintrc.js
+.prettierrc.json
+.travis.yml
+package-lock.json
+package.json
+tsconfig.json
+
+# Markdown
+*.md
+
+# compiled output
+/dist
+
+# dependencies
+/node_modules
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+.DS_Store
+Thumbs.db
