@@ -2,13 +2,13 @@ import { readFileSync } from 'fs';
 
 export class List {
   words: string[];
-  onListChanged: Function;
+  onListChanged: () => void;
 
   get empty(): boolean {
     return !this.words.length;
   }
 
-  constructor(onListChanged: Function) {
+  constructor(onListChanged: () => void) {
     this.onListChanged = onListChanged;
     this.words = [];
   }

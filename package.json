@@ -12,7 +12,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc -w",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "./node_modules/.bin/eslint src",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "prepare": "npm run build",
     "build": "npm run lint && npm run test && tsc && cp src/words.txt dist",
@@ -41,12 +41,14 @@
   "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.4",
-    "@types/node": "^14.14.7",
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^14.14.14",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
     "chai": "^4.2.0",
+    "eslint": "^7.15.0",
     "mocha": "^8.2.1",
-    "ts-node": "^9.0.0",
-    "tslint": "^6.1.3",
-    "typescript": "^4.0.5"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
   }
 }
