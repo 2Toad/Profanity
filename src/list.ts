@@ -1,26 +1,26 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from "fs";
 
 export class List {
   words: string[];
-  onListChanged: Function;
+  onListChanged: () => void;
 
   get empty(): boolean {
     return !this.words.length;
   }
 
-  constructor(onListChanged: Function) {
+  constructor(onListChanged: () => void) {
     this.onListChanged = onListChanged;
     this.words = [];
   }
 
   loadFile(filename: string): void {
-    const file = readFileSync(filename, 'utf8');
-    this.words = file.split('\n').filter(x => x);
+    const file = readFileSync(filename, "utf8");
+    this.words = file.split("\n").filter((x) => x);
     this.onListChanged();
   }
 
   removeWords(words: string[]): void {
-    this.words = this.words.filter(x => !words.includes(x));
+    this.words = this.words.filter((x) => !words.includes(x));
     this.onListChanged();
   }
 
