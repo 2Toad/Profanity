@@ -15,7 +15,7 @@ export class List {
 
   loadFile(filename: string): void {
     const file = readFileSync(filename, "utf8");
-    this.words = file.split("\n").filter((x) => x);
+    this.words = file.split(/[\r\n]+/).filter((x) => x);
     this.onListChanged();
   }
 

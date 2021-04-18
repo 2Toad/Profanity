@@ -57,6 +57,18 @@ describe("Profanity", () => {
     it("should return true when profanity exists as part of a single word", () => {
       expect(customProfanity.exists("arsenic")).to.equal(true);
     });
+
+    it("Should return false when the last character is an 'A' with no profanity (A$$ edge case)", () => {
+      expect(customProfanity.exists("FUNTIMESA")).to.equal(false);
+    });
+
+    it("Should return true when the last character is an 'A' and there is profanity (A$$ edge case)", () => {
+      expect(customProfanity.exists("BUTTSA")).to.equal(true);
+    });
+
+    it("Should return true when some regex characters are present as profanity", () => {
+      expect(customProfanity.exists("lovea$$")).to.equal(true);
+    });
   });
 
   describe("censor", () => {
