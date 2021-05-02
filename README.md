@@ -1,8 +1,8 @@
 # Profanity
 
-[![GitHub version](https://badge.fury.io/gh/2Toad%2FProfanity.svg)](https://badge.fury.io/gh/2Toad%2FProfanity)
+![GitHub version](https://badge.fury.io/gh/2Toad%2FProfanity.svg)
 [![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
-[![Build Status](https://travis-ci.org/2Toad/Profanity.svg?branch=master)](https://travis-ci.org/2Toad/Profanity)
+![build status](https://github.com/2toad/profanity/actions/workflows/node.js.yml/badge.svg?branch=master)
 
 A JavaScript profanity filter (with TypeScript support)
 

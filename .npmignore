@@ -1,3 +1,7 @@
 tsconfig.json
 src
-.travis.yml
+.github
+.prettierignore
+.prettierrc.json
+.editorconfig
+.eslintrc.js
