@@ -3,6 +3,10 @@ import { resolve } from "path";
 import { ProfanityOptions } from "./profanity-options";
 import { List } from "./list";
 
+function escapeRegExp(text: string) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export class Profanity {
   options: ProfanityOptions;
   whitelist: List;
@@ -36,8 +40,11 @@ export class Profanity {
   }
 
   private buildRegex(): void {
-    const blacklistPattern = `${this.options.wholeWord ? "\\b" : ""}(${this.blacklist.words.join("|")})${this.options.wholeWord ? "\\b" : ""}`;
-    const whitelistPattern = this.whitelist.empty ? "" : `(?!${this.whitelist.words.join("|")})`;
+    const escapedBlacklistWords = this.blacklist.words.map(escapeRegExp);
+    const escapedWhitelistWords = this.whitelist.words.map(escapeRegExp);
+
+    const blacklistPattern = `${this.options.wholeWord ? "\\b" : ""}(${escapedBlacklistWords.join("|")})${this.options.wholeWord ? "\\b" : ""}`;
+    const whitelistPattern = this.whitelist.empty ? "" : `(?!${escapedWhitelistWords.join("|")})`;
     this.regex = new RegExp(whitelistPattern + blacklistPattern, "ig");
   }
 }
