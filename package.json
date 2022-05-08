@@ -13,9 +13,10 @@
   "scripts": {
     "dev": "tsc -w",
     "lint": "npx eslint src",
+    "lint:staged": "lint-staged",
     "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "prepare": "npm run build",
+    "prepare": "husky install",
     "build": "npm run lint && npm run test && tsc && cp src/words.txt dist",
     "deploy": "npm publish"
   },
@@ -53,11 +54,6 @@
     "prettier": "2.6.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.ts": [
