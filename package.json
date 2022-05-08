@@ -11,7 +11,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsc -w",
+    "local": "tsc -w",
     "lint": "npx eslint src",
     "lint:staged": "lint-staged",
     "prettier": "npx prettier --write .",
