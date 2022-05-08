@@ -1,11 +1,7 @@
-import { resolve } from "path";
-
 import { ProfanityOptions } from "./profanity-options";
 import { List } from "./list";
-
-function escapeRegExp(text: string) {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
+import { escapeRegExp } from "./utils/misc";
+import profaneWords from "./data/profane-words";
 
 export class Profanity {
   options: ProfanityOptions;
@@ -19,7 +15,7 @@ export class Profanity {
     this.whitelist = new List(() => this.buildRegex());
     this.blacklist = new List(() => this.buildRegex());
 
-    this.blacklist.loadFile(resolve(__dirname, "words.txt"));
+    this.blacklist.addWords(profaneWords);
   }
 
   exists(text: string): boolean {
