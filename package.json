@@ -6,7 +6,7 @@
   "author": "2Toad",
   "license": "MIT",
   "engines": {
-    "node": ">=11.x"
+    "node": ">=12"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
