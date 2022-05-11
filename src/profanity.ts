@@ -1,5 +1,5 @@
 import { ProfanityOptions } from "./profanity-options";
-import { List } from "./list";
+import { List, CensorType } from "./models";
 import { escapeRegExp } from "./utils/misc";
 import profaneWords from "./data/profane-words";
 
@@ -23,8 +23,30 @@ export class Profanity {
     return this.regex.test(text);
   }
 
-  censor(text: string): string {
-    return text.replace(this.regex, this.options.grawlix);
+  censor(text: string, censorType: CensorType = CensorType.Word): string {
+    switch (censorType) {
+      case CensorType.Word:
+        return text.replace(this.regex, this.options.grawlix);
+      case CensorType.FirstChar:
+        for (const match of text.matchAll(this.regex)) {
+          const word = match[0];
+          const grawlix = this.options.grawlixChar + word.slice(1, word.length);
+          text = text.replace(word, grawlix);
+        }
+        return text;
+      case CensorType.FirstVowel:
+      case CensorType.AllVowels: {
+        const regex = new RegExp("[aeiou]", censorType === CensorType.FirstVowel ? "i" : "ig");
+        for (const match of text.matchAll(this.regex)) {
+          const word = match[0];
+          const grawlix = word.replace(regex, this.options.grawlixChar);
+          text = text.replace(word, grawlix);
+        }
+        return text;
+      }
+      default:
+        throw new Error(`Invalid replacement type: "${censorType}"`);
+    }
   }
 
   addWords(words: string[]): void {
