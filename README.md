@@ -79,7 +79,7 @@ profanity.censor('I like big butts and I cannot lie');
 
 ### grawlixChar
 
-When specifying a `CensoryType` other than `CensorType.Word`, this is the character used by the `censor` function.
+When specifying a `CensorType` other than `CensorType.Word`, this is the character used by the `censor` function.
 
 By default this is set to `*`:
 ```JavaScript
