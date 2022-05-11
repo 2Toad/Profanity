@@ -17,7 +17,8 @@
     "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "prepare": "husky install",
-    "build": "npx tsc",
+    "clean": "npx rimraf dist",
+    "build": "npm run clean && npx tsc",
     "deploy": "npm publish"
   },
   "repository": {
@@ -52,6 +53,7 @@
     "lint-staged": "^12.4.1",
     "mocha": "^10.0.0",
     "prettier": "2.6.2",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   },
