@@ -30,6 +30,9 @@ profanity.exists('I like big glutes and I cannot lie');
 
 profanity.censor('I like big butts (aka arses) and I cannot lie');
 // I like big @#$%&! (aka @#$%&!) and I cannot lie
+
+profanity.censor('I like big butts (aka arses) and I cannot lie', CensorType.FirstChar);
+// I like big *utts (aka *rses) and I cannot lie
 ```
 
 ## Options
@@ -41,6 +44,7 @@ import { Profanity, ProfanityOptions } from '@2toad/profanity';
 const options = new ProfanityOptions();
 options.wholeWord = false;
 options.grawlix = '*****';
+options.grawlixChar = '$';
 
 const profanity = new Profanity(options);
 ```
@@ -72,6 +76,23 @@ Setting this to `****`, results in:
 profanity.censor('I like big butts and I cannot lie');
 // I like big **** and I cannot lie
 ```
+
+### grawlixChar
+
+When specifying a `CensoryType` other than `CensorType.Word`, this is the character used by the `censor` function.
+
+By default this is set to `*`:
+```JavaScript
+profanity.censor('I like big butts and I cannot lie', CensorType.AllVowels);
+// I like big b*tts and I cannot lie
+```
+
+Setting this to `$`, results in:
+```JavaScript
+profanity.censor('I like big butts and I cannot lie', CensorType.AllVowels);
+// I like big b$tts and I cannot lie
+```
+
 
 ## Customize the word list
 

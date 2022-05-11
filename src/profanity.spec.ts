@@ -1,6 +1,7 @@
 import { expect } from "chai";
 
 import { profanity, Profanity, ProfanityOptions } from ".";
+import { CensorType } from "./models";
 
 describe("Profanity", () => {
   describe("exists (wholeWord = true)", () => {
@@ -72,34 +73,61 @@ describe("Profanity", () => {
   });
 
   describe("censor", () => {
-    it("should replace profanity with grawlix in a sentence", () => {
-      const censored = profanity.censor("I like big butts and I cannot lie");
-      expect(censored.includes(profanity.options.grawlix)).to.equal(true);
-    });
-
-    it("should remove profanity from a sentence", () => {
+    it("should replace multiple profane words within a sentence with grawlix", () => {
       const censored = profanity.censor("I like big butts (aka arses) and I cannot lie");
-      expect(profanity.exists(censored)).to.equal(false);
+      expect(censored).to.equal(`I like big ${profanity.options.grawlix} (aka ${profanity.options.grawlix}) and I cannot lie`);
     });
 
-    it("should remove profanity from multiple lines", () => {
+    it("should replace a single profane word within a sentence with grawlix", () => {
+      const censored = profanity.censor("I like big butts and I cannot lie");
+      expect(censored).to.equal(`I like big ${profanity.options.grawlix} and I cannot lie`);
+    });
+
+    it("should replace standalone profane word with grawlix", () => {
+      const censored = profanity.censor("butt");
+      expect(censored).to.equal(profanity.options.grawlix);
+    });
+
+    it("should replace profane words within a multi-line sentence with grawlix", () => {
       const censored = profanity.censor(`
         Nothing profane on line 1.
         Censoring butt on line 2.
         Nothing profane on line 3.
       `);
-      expect(profanity.exists(censored)).to.equal(false);
+      expect(censored).to.equal(`
+        Nothing profane on line 1.
+        Censoring ${profanity.options.grawlix} on line 2.
+        Nothing profane on line 3.
+      `);
     });
 
-    it("should not alter sentence without profanity", () => {
+    it("sentences without profanity should not be altered", () => {
       const original = "I like big glutes and I cannot lie";
       const censored = profanity.censor(original);
       expect(censored).to.equal(original);
     });
+  });
 
-    it("should remove profanity when profanity exists as a single word", () => {
-      const censored = profanity.censor("butt");
-      expect(profanity.exists(censored)).to.equal(false);
+  describe("censor (CensorType = FirstChar)", () => {
+    it("should replace first character of each profane word with grawlix character", () => {
+      const censored = profanity.censor("I like big butts (aka arses) and I cannot lie", CensorType.FirstChar);
+      expect(censored).to.equal(`I like big ${profanity.options.grawlixChar}utts (aka ${profanity.options.grawlixChar}rses) and I cannot lie`);
+    });
+  });
+
+  describe("censor (CensorType = FirstVowel)", () => {
+    it("should replace first vowel of each profane word with grawlix character", () => {
+      const censored = profanity.censor("I like big butts (aka arses) and I cannot lie", CensorType.FirstVowel);
+      expect(censored).to.equal(`I like big b${profanity.options.grawlixChar}tts (aka ${profanity.options.grawlixChar}rses) and I cannot lie`);
+    });
+  });
+
+  describe("censor (CensorType = AllVowels)", () => {
+    it("should replace all vowels within each profane word with grawlix character", () => {
+      const censored = profanity.censor("I like big butts (aka arses) and I cannot lie", CensorType.AllVowels);
+      expect(censored).to.equal(
+        `I like big b${profanity.options.grawlixChar}tts (aka ${profanity.options.grawlixChar}rs${profanity.options.grawlixChar}s) and I cannot lie`
+      );
     });
   });
 
