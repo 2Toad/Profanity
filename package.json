@@ -19,7 +19,6 @@
     "clean": "npx rimraf dist",
     "build": "npm run clean && npx tsc",
     "deploy": "npm publish",
-    "postinstall": "husky install",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "repository": {
