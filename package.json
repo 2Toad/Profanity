@@ -6,17 +6,16 @@
   "author": "2Toad",
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=10.23.0"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "local": "npx tsc --watch",
     "lint": "npx eslint src --cache",
-    "lint:fix": "eslint src --cache --fix",
+    "lint:fix": "npx eslint src --cache --fix",
     "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "prepare": "husky install",
     "clean": "npx rimraf dist",
     "build": "npm run clean && npx tsc",
     "deploy": "npm publish"
@@ -48,10 +47,9 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "chai": "^4.3.6",
-    "eslint": "^8.15.0",
-    "husky": "^8.0.0",
+    "eslint": "^7.32.0",
     "lint-staged": "^12.4.1",
-    "mocha": "^10.0.0",
+    "mocha": "^9.2.2",
     "prettier": "2.6.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
