@@ -16,10 +16,11 @@
     "lint:fix": "eslint src --cache --fix",
     "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "prepare": "husky install",
     "clean": "npx rimraf dist",
     "build": "npm run clean && npx tsc",
-    "deploy": "npm publish"
+    "deploy": "npm publish",
+    "postinstall": "husky install",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "repository": {
     "type": "git",
