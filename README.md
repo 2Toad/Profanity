@@ -14,6 +14,8 @@ Install package
 npm i @2toad/profanity
 ```
 
+>if you're using Node 11.x or older you'll need to install [Profanity 1.x](https://www.npmjs.com/package/@2toad/profanity) (e.g., `npm i @2toad/profanity@1.4.0`)
+
 ## Usage
 
 ```JavaScript
