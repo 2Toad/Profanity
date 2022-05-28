@@ -1,6 +1,6 @@
 {
   "name": "@2toad/profanity",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A JavaScript profanity filter",
   "homepage": "https://github.com/2Toad/Profanity",
   "author": "2Toad",
@@ -13,7 +13,7 @@
   "scripts": {
     "local": "npx tsc --watch",
     "lint": "npx eslint src --cache",
-    "lint:fix": "eslint src --cache --fix",
+    "lint:fix": "npx eslint src --cache --fix",
     "prettier": "npx prettier --write .",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "clean": "npx rimraf dist",
