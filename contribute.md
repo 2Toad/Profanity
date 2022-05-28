@@ -11,12 +11,12 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
    1. We support two versions of Profanity: `1.x.x` and `master`. The `master` branch has features that require Node 12+, but we maintain the `1.x.x` branch for projects that require older versions of Node.
    2. If the Issue you are working on has a `1.x.x` label on it, you must branch off of the `1.x.x` branch. Otherwise, please branch off of `master`.
 3. [Pull Request](https://github.com/2Toad/Profanity/pulls) (PR):
-   1. make sure you run the following scripts in local, and that all of them pass, before submitting a PR:
+   1. Make sure you run the following scripts in local, and that all of them pass, before submitting a PR:
       1. `npm run lint`
       2. `npm run prettier`
       3. `npm test`
       4. `npm run build`
-   2. Make sure your PR is targeting the correct branch (see Step 2.2)
+   2. Make sure your PR is targeting the correct branch (see Step 2.ii)
    3. At the top of your PR description write: "Fixes #_n_". Where _n_ is number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
 
 
@@ -24,7 +24,8 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
 
 ### Prerequisites
 
-- Node ([16.15.0](https://nodejs.org))
+- `master` branch: [Node 12+](https://nodejs.org)
+- `1.x.x` branch: [Node 10.23.0](https://nodejs.org)
 
 ### Source Code
 
