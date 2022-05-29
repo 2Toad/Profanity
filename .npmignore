@@ -1,7 +1,11 @@
-tsconfig.json
-src
 .github
+.husky
+src
+.editorconfig
+.eslintcache
+.eslintrc.js
+.gitignore
+.nvmrc
 .prettierignore
 .prettierrc.json
-.editorconfig
-.eslintrc.js
+tsconfig.json
