@@ -1,6 +1,8 @@
 export class ProfanityOptions {
   wholeWord: boolean;
+
   grawlix: string;
+
   grawlixChar: string;
 
   constructor() {

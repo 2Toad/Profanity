@@ -12,7 +12,4 @@ end_of_line = lf
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
-
-[*.txt]
-max_line_length = off
 insert_final_newline = false
