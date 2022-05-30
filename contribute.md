@@ -17,7 +17,7 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
       3. `npm test`
       4. `npm run build`
    2. Make sure your PR is targeting the correct branch (see Step 2.ii)
-   3. At the top of your PR description write: "Fixes #_n_". Where _n_ is number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
+   3. At the top of your PR description write: "Fixes #_n_". Where _n_ is the number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
 
 
 ## Development 
@@ -41,9 +41,10 @@ Start app in watch mode: `npm run local`
 
 #### Linting
 
-- Check ESLint rules: `npm run lint`
-- Fix ESLint errors: `npm run lint:fix`
-- Fix code formatting: `npm run prettier`
+- Check lint rules: `npm run lint`
+- Fix lint errors: `npm run lint:fix`
+- Check formatting rules: `npm run prettier`
+- Fix formatting errors: `npm run prettier:fix`
 
 ## Appendix
 

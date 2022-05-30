@@ -1,5 +1,6 @@
 export class List {
   words: string[];
+
   onListChanged: () => void;
 
   get empty(): boolean {

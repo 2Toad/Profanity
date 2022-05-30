@@ -1,7 +1,7 @@
 import { expect } from "chai";
 
-import { profanity, Profanity, ProfanityOptions } from ".";
-import { CensorType } from "./models";
+import { profanity, Profanity, ProfanityOptions } from "../src";
+import { CensorType } from "../src/models";
 
 describe("Profanity", () => {
   describe("exists (wholeWord = true)", () => {

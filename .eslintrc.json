@@ -1,0 +1,23 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": ["airbnb-base", "airbnb-typescript/base", "plugin:security/recommended", "plugin:prettier/recommended"],
+  "plugins": ["security", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-console": "off",
+    "func-names": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off",
+    "security/detect-object-injection": "off",
+    "security/detect-non-literal-regexp": "off",
+    "import/no-named-as-default-member": "off",
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": "off"
+  }
+}

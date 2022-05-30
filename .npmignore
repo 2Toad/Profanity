@@ -1,9 +1,11 @@
-.github
-.husky
-src
+.github/
+.husky/
+src/
+tests/
 .editorconfig
 .eslintcache
-.eslintrc.js
+.eslintignore
+.eslintrc.json
 .gitignore
 .nvmrc
 .prettierignore
