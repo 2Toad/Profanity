@@ -111,7 +111,7 @@ profanity.removeWords(['butt', 'arse']);
 ## Whitelist
 The whitelist allows you to specify words that are always ignored by the profanity filter.
 
->This can be useful if you want to turn partial word matching on (`wholeWord = true`), so combined words are caught (e.g., arselicker), while specific words you add to the whitelist are ignored (e.g., arsenic).
+>This can be useful if you want to turn partial word matching on (`wholeWord = false`), so combined words are caught (e.g., arselicker), while specific words you add to the whitelist are ignored (e.g., arsenic).
 
 Add words to the whitelist:
 ```JavaScript
