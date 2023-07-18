@@ -125,4 +125,4 @@ profanity.whitelist.removeWords(['arsenic', 'buttress']);
 
 ## Contributing
 
-So you want to contribute to the Profanikty project? Fantastic! Please read the [Contribute](https://github.com/2Toad/Profanity/blob/master/contribute.md) doc to get started.
+So you want to contribute to the Profanity project? Fantastic! Please read the [Contribute](https://github.com/2Toad/Profanity/blob/master/contribute.md) doc to get started.
