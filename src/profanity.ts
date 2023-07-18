@@ -69,7 +69,7 @@ export class Profanity {
     const escapedWhitelistWords = this.whitelist.words.map(escapeRegExp);
 
     const blacklistPattern = `${this.options.wholeWord ? "\\b" : ""}(${escapedBlacklistWords.join("|")})${this.options.wholeWord ? "\\b" : ""}`;
-    const whitelistPattern = this.whitelist.empty ? "" : `(?!${escapedWhitelistWords.join("|")})`;
+    const whitelistPattern = this.whitelist.empty ? "" : `\\b(?!${escapedWhitelistWords.join("|")})\\b`;
     this.regex = new RegExp(whitelistPattern + blacklistPattern, "ig");
   }
 }
