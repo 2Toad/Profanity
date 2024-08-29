@@ -86,7 +86,11 @@ Deployments to Prod consist of building and publishing the Profanity lib to NPM,
    git push
    ```
 
-#### 2. Publish GitHub Release
+#### 2. Verify Checks
+1. Navigate to the [CI](https://github.com/2Toad/Profanity/actions/workflows/ci.yml) workflow
+2. Ensure the run for the above commit to `master` succeeds
+
+#### 3. Publish GitHub Release
 1. Navigate to releases (e.g., https://github.com/2Toad/Profanity/releases)
 2. Click "Draft a new release"
    - Choose a tag: (enter version `v1.1.0` and click "Create new tag")
@@ -97,4 +101,4 @@ Deployments to Prod consist of building and publishing the Profanity lib to NPM,
    - [x] Set as the latest release
 3. Click "Publish release"
 
-> This will trigger the [Publish to NPM](https://github.com/2Toad/Profanity/actions/workflows/npm-publish.yml) workflow, which will build and deploy the package to NPM: https://www.npmjs.com/package/@2toad/profanity
+> This will trigger the [CDP](https://github.com/2Toad/Profanity/actions/workflows/cdp.yml) workflow, which will build and deploy the package to NPM: https://www.npmjs.com/package/@2toad/profanity
