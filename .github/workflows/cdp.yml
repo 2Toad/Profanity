@@ -7,7 +7,8 @@ on:
     types: [created]
 
 jobs:
-  publish:
+  continous-deployment:
+    name: Continous Deployment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
