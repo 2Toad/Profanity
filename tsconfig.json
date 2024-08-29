@@ -9,7 +9,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2019",
-    "esModuleInterop": true,
     "typeRoots": ["node_modules/@types"],
     "lib": ["dom", "es2019"]
   },
