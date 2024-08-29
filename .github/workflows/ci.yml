@@ -1,4 +1,7 @@
-name: Node CI
+# This Continous Integration (CI) pipeline lints, builds, and tests the code when a Pull Request is
+# created or a commit is pushed to the Prod branch
+
+name: CI
 
 on:
   push:
