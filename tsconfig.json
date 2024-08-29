@@ -8,9 +8,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2018",
+    "target": "es2019",
+    "esModuleInterop": true,
     "typeRoots": ["node_modules/@types"],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2019"]
   },
   "include": ["src/**/*"]
 }

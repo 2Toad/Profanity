@@ -6,7 +6,7 @@
   "extends": ["airbnb-base", "airbnb-typescript/base", "plugin:security/recommended", "plugin:prettier/recommended"],
   "plugins": ["security", "prettier"],
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2019,
     "project": "./tsconfig.json"
   },
   "rules": {
