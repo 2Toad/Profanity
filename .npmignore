@@ -6,6 +6,7 @@ tests/
 .eslintcache
 .eslintignore
 .eslintrc.json
+.gitattributes
 .gitignore
 .nvmrc
 .prettierignore
