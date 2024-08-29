@@ -10,7 +10,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  continous-integration:
+    name: Continous Integration
     runs-on: ubuntu-latest
 
     steps:
