@@ -1,8 +1,8 @@
-# Contribute to the Profanity project
+# Contribute to the Profanity project 🤝
 
 Thank you for wanting to contribute to the Profanity project. With your contributions we can ensure Profanity remains a leading solution for filtering profanity within JavaScript projects
 
-## Steps for success
+## Steps for success ✅
 
 1. [Issues](https://github.com/2Toad/Profanity/issues):
    1. Always work off of an Issue. Please do not submit a Pull Request that is not associated with an Issue (create the Issue if necessary).
@@ -19,35 +19,35 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
    2. Make sure your PR is targeting the correct branch (see Step 2.ii)
    3. At the top of your PR description write: "Fixes #_n_". Where _n_ is the number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
 
-## Development 
+## Development 💻
 
-### Prerequisites
+### Prerequisites 📝
 
 - `master` branch: [Node 20+](https://nodejs.org)
 - `1.x.x` branch: [Node 10.23.0](https://nodejs.org)
 
-### Source Code
+### Source Code 🔠
 
 1. Clone the repo
 2. Change directories: `cd Profanity`
 3. Install dependencies: `npm i`
 
-### Development
+### Workflow 🔁
 
 Start app in watch mode: `npm run local`
 
->When file changes are detected, the app will automatically rebuild/restart
+> When file changes are detected, the app will automatically rebuild/restart
 
-#### Linting
+#### Linting 🧹
 
 - Check lint rules: `npm run lint`
 - Fix lint errors: `npm run lint:fix`
 - Check formatting rules: `npm run prettier`
 - Fix formatting errors: `npm run prettier:fix`
 
-## Appendix
+## Appendix 📚
 
-### Dev Tools
+### Dev Tools 🛠️
 
 The following section includes optional dev tools that enhance the Profanity development experience, but are not necessary.
 
@@ -67,11 +67,11 @@ The Profanity project includes an .nvmrc file, so you can run `nvm use` to switc
 
 The Profanity project includes Husky for running Git Hooks. Running `git commit` will trigger `lint-staged` which will lint all files currently staged in Git. If linting fails, the commit will be cancelled
 
-### Dependencies
+### Dependencies 📦
 
 - `chai`: we must use v4.x because v5.x is pure ESM, and we require CommonJS modules
 
-### Deployments
+### Deployments 🚀
 
 Deployments to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continous Deployment workflow.
 

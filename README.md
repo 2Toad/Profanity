@@ -1,4 +1,4 @@
-# Profanity
+# Profanity 🧼
 
 ![GitHub Release](https://img.shields.io/github/v/release/2Toad/Profanity)
 [![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
@@ -6,17 +6,17 @@
 
 A JavaScript profanity filter (with TypeScript support)
 
-## Getting Started
+## Getting Started 🚀
 
-Install package
+Install the package
 
 ```Shell
 npm i @2toad/profanity
 ```
 
->if you're using Node 11.x or older you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.0`)
+>If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.0`)
 
-## Usage
+## Usage 📚
 
 ```JavaScript
 import { profanity } from '@2toad/profanity';
@@ -37,7 +37,7 @@ profanity.censor('I like big butts (aka arses) and I cannot lie', CensorType.Fir
 // I like big *utts (aka *rses) and I cannot lie
 ```
 
-## Options
+## Options ⚙️
 Create an instance of the Profanity class to change the default options:
 
 ```JavaScript
@@ -51,9 +51,9 @@ options.grawlixChar = '$';
 const profanity = new Profanity(options);
 ```
 
-### wholeWord
+### wholeWord 🔤
 
-By default this is set to `true`, so profanity only matches on whole words:
+By default, this is set to `true` so profanity only matches on whole words:
 ```JavaScript
 profanity.exists('Arsenic is poisonous but not profane');
 // false
@@ -65,7 +65,7 @@ profanity.exists('Arsenic is poisonous but not profane');
 // true (matched on arse)
 ```
 
-### grawlix
+### grawlix 💥
 
 By default this is set to `@#$%&!`:
 ```JavaScript
@@ -79,7 +79,7 @@ profanity.censor('I like big butts and I cannot lie');
 // I like big **** and I cannot lie
 ```
 
-### grawlixChar
+### grawlixChar 💲
 
 When specifying a `CensorType` other than `CensorType.Word`, this is the character used by the `censor` function.
 
@@ -96,7 +96,7 @@ profanity.censor('I like big butts and I cannot lie', CensorType.AllVowels);
 ```
 
 
-## Customize the word list
+## Customize the word list 📝
 
 Add words:
 ```JavaScript
@@ -108,10 +108,10 @@ Remove words:
 profanity.removeWords(['butt', 'arse']);
 ```
 
-## Whitelist
+## Whitelist ✅
 The whitelist allows you to specify words that are always ignored by the profanity filter.
 
->This can be useful if you want to turn partial word matching on (`wholeWord = false`), so combined words are caught (e.g., arselicker), while specific words you add to the whitelist are ignored (e.g., arsenic).
+>This can be useful if you want to enable partial word matching (`wholeWord = false`), so combined words are caught (e.g., arselicker), while specific words you add to the whitelist are ignored (e.g., arsenic).
 
 Add words to the whitelist:
 ```JavaScript
@@ -123,6 +123,6 @@ Remove words from the whitelist:
 profanity.whitelist.removeWords(['arsenic', 'buttress']);
 ```
 
-## Contributing
+## Contributing 🤝
 
-So you want to contribute to the Profanikty project? Fantastic! Please read the [Contribute](https://github.com/2Toad/Profanity/blob/master/contribute.md) doc to get started.
+So you want to contribute to the Profanity project? Fantastic! Please read the [Contribute](./contribute.md) doc to get started.
