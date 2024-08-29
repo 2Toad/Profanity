@@ -1,6 +1,6 @@
-# This workflow will publish a package to NPM when a release is created
+# This Continous Deployment (CDP) workflow publishes a package to NPM when a release is created
 
-name: Publish to NPM
+name: CDP
 
 on:
   release:
