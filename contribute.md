@@ -14,8 +14,8 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
    1. Make sure you run the following scripts in local, and that all of them pass, before submitting a PR:
       1. `npm run lint`
       2. `npm run prettier`
-      3. `npm test`
-      4. `npm run build`
+      3. `npm run build`
+      4. `npm test`
    2. Make sure your PR is targeting the correct branch (see Step 2.ii)
    3. At the top of your PR description write: "Fixes #_n_". Where _n_ is the number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
 
@@ -24,7 +24,7 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
 
 ### Prerequisites
 
-- `master` branch: [Node 12+](https://nodejs.org)
+- `master` branch: [Node 20+](https://nodejs.org)
 - `1.x.x` branch: [Node 10.23.0](https://nodejs.org)
 
 ### Source Code
