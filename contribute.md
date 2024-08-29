@@ -19,7 +19,6 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
    2. Make sure your PR is targeting the correct branch (see Step 2.ii)
    3. At the top of your PR description write: "Fixes #_n_". Where _n_ is the number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
 
-
 ## Development 
 
 ### Prerequisites
@@ -71,3 +70,31 @@ The Profanity project includes Husky for running Git Hooks. Running `git commit`
 ### Dependencies
 
 - `chai`: we must use v4.x because v5.x is pure ESM, and we require CommonJS modules
+
+### Deployments
+
+Deployments to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continous Deployment workflow.
+
+#### 1. Change Version
+1. Checkout `master`
+2. Increment version (semantic) in package.json (e.g., 1.1.0)
+3. Rebuild package-lock (to pick up new version ): `npm i --package-lock-only`
+4. Push changes:
+   ```
+   git add .
+   git commmit -m "Bump version to 1.1.0"
+   git push
+   ```
+
+#### 2. Publish GitHub Release
+1. Navigate to releases (e.g., https://github.com/2Toad/Profanity/releases)
+2. Click "Draft a new release"
+   - Choose a tag: (enter version `v1.1.0` and click "Create new tag")
+   - Target: `master`
+   - Previous tag: `auto`
+   - Release title: `1.1.0`
+   - Description: (click the "Genereate release notes")
+   - [x] Set as the latest release
+3. Click "Publish release"
+
+> This will trigger the [Publish to NPM](https://github.com/2Toad/Profanity/actions/workflows/npm-publish.yml) workflow, which will build and deploy the package to NPM: https://www.npmjs.com/package/@2toad/profanity
