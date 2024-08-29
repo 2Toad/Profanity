@@ -1,10 +1,11 @@
 # Profanity
 
-[![GitHub version](https://badge.fury.io/gh/2Toad%2FProfanity.svg)](https://github.com/2Toad/Profanity/releases)
 [![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
-[![Build status](https://github.com/2toad/profanity/actions/workflows/nodejs.yml/badge.svg)](https://github.com/2Toad/Profanity/actions/workflows/nodejs.yml)
+[![Build status](https://github.com/2toad/profanity/actions/workflows/ci.yml/badge.svg)](https://github.com/2Toad/Profanity/actions/workflows/nodejs.yml)
 
 A JavaScript profanity filter (with TypeScript support)
+
+> ⚠️ WARNING: this is a deprecated version of Profanity, which is only being maintained with security patches for users that require Node 11.x or older. If you're using Node 12.x or newer, use [Profanity 2+](https://github.com/2Toad/Profanity/releases)
 
 ## Getting Started
 
