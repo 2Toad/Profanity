@@ -68,7 +68,6 @@ The Profanity project includes an .nvmrc file, so you can run `nvm use` to switc
 
 The Profanity project includes Husky for running Git Hooks. Running `git commit` will trigger `lint-staged` which will lint all files currently staged in Git. If linting fails, the commit will be cancelled
 
-##### Setup
+### Dependencies
 
-1. Install husky: `npx husky install`
-2. Give Husky permission: `sudo chmod -R +x .husky`
+- `chai`: we must use v4.x because v5.x is pure ESM, and we require CommonJS modules
