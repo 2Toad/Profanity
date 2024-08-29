@@ -23,7 +23,7 @@ describe("Profanity", () => {
         Nothing profane on line 1.
         Censoring butt on line 2.
         Nothing profane on line 3.
-      `)
+      `),
       ).to.equal(true);
     });
 
@@ -47,7 +47,7 @@ describe("Profanity", () => {
         Nothing profane on line 1.
         Censoring arsenic on line 2.
         Nothing profane on line 3.
-      `)
+      `),
       ).to.equal(true);
     });
 
@@ -126,7 +126,7 @@ describe("Profanity", () => {
     it("should replace all vowels within each profane word with grawlix character", () => {
       const censored = profanity.censor("I like big butts (aka arses) and I cannot lie", CensorType.AllVowels);
       expect(censored).to.equal(
-        `I like big b${profanity.options.grawlixChar}tts (aka ${profanity.options.grawlixChar}rs${profanity.options.grawlixChar}s) and I cannot lie`
+        `I like big b${profanity.options.grawlixChar}tts (aka ${profanity.options.grawlixChar}rs${profanity.options.grawlixChar}s) and I cannot lie`,
       );
     });
   });
