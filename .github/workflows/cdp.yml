@@ -1,4 +1,4 @@
-# This Continous Deployment (CDP) workflow publishes a package to NPM when a release is created
+# This Continuous Deployment (CDP) workflow publishes a package to NPM when a release is created
 
 name: CDP
 
@@ -7,17 +7,20 @@ on:
     types: [created]
 
 jobs:
-  continous-deployment:
-    name: Continous Deployment
+  continuous-deployment:
+    name: Continuous Deployment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Get Node Version
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org/
 
       - name: Install Dependencies
