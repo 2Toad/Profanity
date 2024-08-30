@@ -18,7 +18,7 @@ export class List {
   }
 
   addWords(words: readonly string[] | string[]): void {
-    this.words = this.words.concat(words);
+    this.words = this.words.concat(words.map((word: string) => word.toLowerCase()));
     this.onListChanged();
   }
 }
