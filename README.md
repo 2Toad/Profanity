@@ -14,16 +14,17 @@ Install the package
 npm i @2toad/profanity
 ```
 
->If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.0`)
+>If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.1`)
 
 ## Usage 📚
 
 ```JavaScript
-import { profanity } from '@2toad/profanity';
+import { profanity, CensorType } from '@2toad/profanity';
 // or
-var profanity = require('@2toad/profanity').profanity;
+const { profanity, CensorType } = require('@2toad/profanity');
+```
 
-
+```JavaScript
 profanity.exists('I like big butts and I cannot lie');
 // true
 
@@ -41,14 +42,13 @@ profanity.censor('I like big butts (aka arses) and I cannot lie', CensorType.Fir
 Create an instance of the Profanity class to change the default options:
 
 ```JavaScript
-import { Profanity, ProfanityOptions } from '@2toad/profanity';
+import { Profanity } from '@2toad/profanity';
 
-const options = new ProfanityOptions();
-options.wholeWord = false;
-options.grawlix = '*****';
-options.grawlixChar = '$';
-
-const profanity = new Profanity(options);
+const profanity = new Profanity({
+    wholeWord: false,
+    grawlix: '*****',
+    grawlixChar: '$',
+});
 ```
 
 ### wholeWord 🔤
@@ -62,6 +62,23 @@ profanity.exists('Arsenic is poisonous but not profane');
 Setting this to `false`, results in partial word matches:
 ```JavaScript
 profanity.exists('Arsenic is poisonous but not profane');
+// true (matched on arse)
+```
+
+#### Compound Words  
+Profanity detection works on parts of compound words, rather than treating hyphenated or underscore-separated words as indivisible.
+
+When `wholeWord` is `true`, each portion of a compound word is analyzed for a match:
+```JavaScript
+profanity.exists("Don't be an arsenic-monster");
+// false
+
+profanity.exists("Don't be an arse-monster");
+// true (matched on arse)
+```
+Setting `wholeWord` to `false`, results in partial word matches on each portion of a compound word:
+```JavaScript
+profanity.exists("Don't be an arsenic-monster");
 // true (matched on arse)
 ```
 

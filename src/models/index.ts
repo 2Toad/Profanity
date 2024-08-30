@@ -1,2 +1,2 @@
-export * from "./censor-type";
-export * from "./list";
+export { CensorType } from "./censor-type";
+export { List } from "./list";
