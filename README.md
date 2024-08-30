@@ -42,14 +42,13 @@ profanity.censor('I like big butts (aka arses) and I cannot lie', CensorType.Fir
 Create an instance of the Profanity class to change the default options:
 
 ```JavaScript
-import { Profanity, ProfanityOptions } from '@2toad/profanity';
+import { Profanity } from '@2toad/profanity';
 
-const options = new ProfanityOptions();
-options.wholeWord = false;
-options.grawlix = '*****';
-options.grawlixChar = '$';
-
-const profanity = new Profanity(options);
+const profanity = new Profanity({
+    wholeWord: false,
+    grawlix: '*****',
+    grawlixChar: '$',
+});
 ```
 
 ### wholeWord 🔤
@@ -58,17 +57,28 @@ By default, this is set to `true` so profanity only matches on whole words:
 ```JavaScript
 profanity.exists('Arsenic is poisonous but not profane');
 // false
-
-profanity.exists("Don't be a butt-head");
-// true (hyphenated words are considered whole words)
-
-profanity.exists("Don't be a butt_head");
-// true (underscore-separated words are considered whole words)
 ```
 
 Setting this to `false`, results in partial word matches:
 ```JavaScript
 profanity.exists('Arsenic is poisonous but not profane');
+// true (matched on arse)
+```
+
+#### Compound Words  
+Profanity detection works on parts of compound words, rather than treating hyphenated or underscore-separated words as indivisible.
+
+When `wholeWord` is `true`, each portion of a compound word is analyzed for a match:
+```JavaScript
+profanity.exists("Don't be an arsenic-monster");
+// false
+
+profanity.exists("Don't be an arse-monster");
+// true (matched on arse)
+```
+Setting `wholeWord` to `false`, results in partial word matches on each portion of a compound word:
+```JavaScript
+profanity.exists("Don't be an arsenic-monster");
 // true (matched on arse)
 ```
 

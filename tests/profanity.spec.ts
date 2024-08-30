@@ -1,7 +1,6 @@
 import { expect } from "chai";
 
-import { profanity, Profanity, ProfanityOptions } from "../src";
-import { CensorType } from "../src/models";
+import { profanity, Profanity, CensorType } from "../src";
 
 describe("Profanity", () => {
   describe("exists", () => {
@@ -50,6 +49,22 @@ describe("Profanity", () => {
 
       it("should return true when profanity is separated by hyphens", () => {
         expect(profanity.exists("Don't be an ass-hole")).to.be.true;
+        expect(profanity.exists("Don't be a hole-ass")).to.be.true;
+      });
+
+      it("should return true when profanity is separated by underscores", () => {
+        expect(profanity.exists("Don't be an arse_face")).to.be.true;
+        expect(profanity.exists("Don't be a face_arse")).to.be.true;
+      });
+
+      it("should return false when profanity is part of a word separated by a hyphen", () => {
+        expect(profanity.exists("Don't be an arsenic-head")).to.be.false;
+        expect(profanity.exists("Don't be a head-arsenic")).to.be.false;
+      });
+
+      it("should return false when profanity is part of a word separated by an underscore", () => {
+        expect(profanity.exists("Don't be an arsenic_head")).to.be.false;
+        expect(profanity.exists("Don't be a head_arsenic")).to.be.false;
       });
 
       it("should return false when profanity is part of a URL", () => {
@@ -65,9 +80,7 @@ describe("Profanity", () => {
       let customProfanity: Profanity;
 
       before(() => {
-        const options = new ProfanityOptions();
-        options.wholeWord = false;
-        customProfanity = new Profanity(options);
+        customProfanity = new Profanity({ wholeWord: false });
       });
 
       it("should return true when profanity is part of a word in a sentence", () => {
@@ -112,10 +125,16 @@ describe("Profanity", () => {
 
       it("should return true when profanity is separated by hyphens", () => {
         expect(customProfanity.exists("Don't be an ass-hole")).to.be.true;
+        expect(customProfanity.exists("Don't be an hole-ass")).to.be.true;
+        expect(customProfanity.exists("Don't be an arsenic-head")).to.be.true;
+        expect(customProfanity.exists("Don't be an head-arsenic")).to.be.true;
       });
 
       it("should return true when profanity is separated by underscores", () => {
-        expect(customProfanity.exists("Don't be a butt_head")).to.be.true;
+        expect(customProfanity.exists("Don't be an ass_hole")).to.be.true;
+        expect(customProfanity.exists("Don't be an hole_ass")).to.be.true;
+        expect(customProfanity.exists("Don't be an arsenic_head")).to.be.true;
+        expect(customProfanity.exists("Don't be an head_arsenic")).to.be.true;
       });
 
       it("should return true when profanity is surrounded by emoji", () => {
@@ -345,9 +364,7 @@ describe("Profanity", () => {
       });
 
       it("should detect custom added words (wholeWord = false)", () => {
-        const options = new ProfanityOptions();
-        options.wholeWord = false;
-        const customProfanityPartial = new Profanity(options);
+        const customProfanityPartial = new Profanity({ wholeWord: false });
         customProfanityPartial.addWords(["cucumber", "banana"]);
         expect(customProfanityPartial.exists("I love cucumbers")).to.be.true;
         expect(customProfanityPartial.exists("Bananas are yellow")).to.be.true;
@@ -406,9 +423,7 @@ describe("Profanity", () => {
       let customProfanityPartial: Profanity;
 
       before(() => {
-        const options = new ProfanityOptions();
-        options.wholeWord = false;
-        customProfanityPartial = new Profanity(options);
+        customProfanityPartial = new Profanity({ wholeWord: false });
       });
 
       it("should whitelist multiple words", () => {
@@ -480,16 +495,12 @@ describe("Profanity", () => {
   describe("Custom options", () => {
     describe("Custom grawlix", () => {
       it("should use custom grawlix string", () => {
-        const options = new ProfanityOptions();
-        options.grawlix = "!@#";
-        const customProfanity = new Profanity(options);
+        const customProfanity = new Profanity({ grawlix: "!@#" });
         expect(customProfanity.censor("Don't be an ass")).to.equal("Don't be an !@#");
       });
 
       it("should use custom grawlix character", () => {
-        const options = new ProfanityOptions();
-        options.grawlixChar = "X";
-        const customProfanity = new Profanity(options);
+        const customProfanity = new Profanity({ grawlixChar: "X" });
         expect(customProfanity.censor("You're a bitch", CensorType.FirstChar)).to.equal("You're a Xitch");
       });
     });
