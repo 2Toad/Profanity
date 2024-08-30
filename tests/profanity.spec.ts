@@ -28,7 +28,7 @@ describe("Profanity", () => {
       });
 
       it("should return true when profanity is surrounded by punctuation", () => {
-        expect(profanity.exists("What the (ass)!")).to.be.true;
+        expect(profanity.exists("What the (butt)!")).to.be.true;
       });
 
       it("should return false when profanity is part of a larger word", () => {
@@ -36,11 +36,11 @@ describe("Profanity", () => {
       });
 
       it("should return true when profanity is at the beginning of a sentence", () => {
-        expect(profanity.exists("Ass is a profane word")).to.be.true;
+        expect(profanity.exists("Butt is a profane word")).to.be.true;
       });
 
       it("should return true when profanity is at the end of a sentence", () => {
-        expect(profanity.exists("Don't be an ass.")).to.be.true;
+        expect(profanity.exists("Don't be a butt.")).to.be.true;
       });
 
       it("should return false for words that are substrings of profane words", () => {
@@ -48,13 +48,13 @@ describe("Profanity", () => {
       });
 
       it("should return true when profanity is separated by hyphens", () => {
-        expect(profanity.exists("Don't be an ass-hole")).to.be.true;
-        expect(profanity.exists("Don't be a hole-ass")).to.be.true;
+        expect(profanity.exists("Don't be a butt-head")).to.be.true;
+        expect(profanity.exists("Don't be a head-butt")).to.be.true;
       });
 
       it("should return true when profanity is separated by underscores", () => {
-        expect(profanity.exists("Don't be an arse_face")).to.be.true;
-        expect(profanity.exists("Don't be a face_arse")).to.be.true;
+        expect(profanity.exists("Don't be a butt_face")).to.be.true;
+        expect(profanity.exists("Don't be a face_butt")).to.be.true;
       });
 
       it("should return false when profanity is part of a word separated by a hyphen", () => {
@@ -72,7 +72,7 @@ describe("Profanity", () => {
       });
 
       it("should return true when profanity is surrounded by emoji", () => {
-        expect(profanity.exists("That's 💩ass💩")).to.be.true;
+        expect(profanity.exists("That's 💩butt💩")).to.be.true;
       });
     });
 
@@ -104,11 +104,11 @@ describe("Profanity", () => {
       });
 
       it("should return true when profanity is at the beginning of a word", () => {
-        expect(customProfanity.exists("assemble the team")).to.be.true;
+        expect(customProfanity.exists("buttress the wall")).to.be.true;
       });
 
       it("should return true when profanity is at the end of a word", () => {
-        expect(customProfanity.exists("kickass performance")).to.be.true;
+        expect(customProfanity.exists("kickbutt performance")).to.be.true;
       });
 
       it("should return true when profanity is in the middle of a word", () => {
@@ -124,43 +124,43 @@ describe("Profanity", () => {
       });
 
       it("should return true when profanity is separated by hyphens", () => {
-        expect(customProfanity.exists("Don't be an ass-hole")).to.be.true;
-        expect(customProfanity.exists("Don't be an hole-ass")).to.be.true;
+        expect(customProfanity.exists("Don't be a butt-head")).to.be.true;
+        expect(customProfanity.exists("Don't be a head-butt")).to.be.true;
         expect(customProfanity.exists("Don't be an arsenic-head")).to.be.true;
-        expect(customProfanity.exists("Don't be an head-arsenic")).to.be.true;
+        expect(customProfanity.exists("Don't be a head-arsenic")).to.be.true;
       });
 
       it("should return true when profanity is separated by underscores", () => {
-        expect(customProfanity.exists("Don't be an ass_hole")).to.be.true;
-        expect(customProfanity.exists("Don't be an hole_ass")).to.be.true;
+        expect(customProfanity.exists("Don't be a butt_head")).to.be.true;
+        expect(customProfanity.exists("Don't be a head_butt")).to.be.true;
         expect(customProfanity.exists("Don't be an arsenic_head")).to.be.true;
-        expect(customProfanity.exists("Don't be an head_arsenic")).to.be.true;
+        expect(customProfanity.exists("Don't be a head_arsenic")).to.be.true;
       });
 
       it("should return true when profanity is surrounded by emoji", () => {
-        expect(customProfanity.exists("That's 💩ass💩")).to.be.true;
+        expect(customProfanity.exists("That's 💩butt💩")).to.be.true;
       });
     });
 
     describe("Case sensitivity", () => {
       it("should detect mixed case profanity", () => {
-        expect(profanity.exists("Don't be an AsS")).to.be.true;
+        expect(profanity.exists("Don't be a BuTt")).to.be.true;
       });
 
       it("should detect all uppercase profanity", () => {
-        expect(profanity.exists("DON'T BE AN ASS")).to.be.true;
+        expect(profanity.exists("DON'T BE A BUTT")).to.be.true;
       });
 
       it("should detect all lowercase profanity", () => {
-        expect(profanity.exists("don't be an ass")).to.be.true;
+        expect(profanity.exists("don't be a butt")).to.be.true;
       });
 
       it("should detect profanity with alternating case", () => {
-        expect(profanity.exists("dOn'T bE aN aSs")).to.be.true;
+        expect(profanity.exists("dOn'T bE a BuTt")).to.be.true;
       });
 
       it("should detect profanity with random casing", () => {
-        expect(profanity.exists("DoN't Be An aSs")).to.be.true;
+        expect(profanity.exists("DoN't Be A bUtT")).to.be.true;
       });
     });
   });
@@ -191,15 +191,15 @@ describe("Profanity", () => {
       });
 
       it("should censor profanity at the beginning of a sentence", () => {
-        expect(profanity.censor("Ass is a profane word")).to.equal(`${profanity.options.grawlix} is a profane word`);
+        expect(profanity.censor("Butt is a profane word")).to.equal(`${profanity.options.grawlix} is a profane word`);
       });
 
       it("should censor profanity at the end of a sentence", () => {
-        expect(profanity.censor("Don't be an ass")).to.equal(`Don't be an ${profanity.options.grawlix}`);
+        expect(profanity.censor("Don't be a butt")).to.equal(`Don't be a ${profanity.options.grawlix}`);
       });
 
       it("should censor multiple occurrences of the same profane word", () => {
-        expect(profanity.censor("Ass, ass, ass!")).to.equal(
+        expect(profanity.censor("Butt, butt, butt!")).to.equal(
           `${profanity.options.grawlix}, ${profanity.options.grawlix}, ${profanity.options.grawlix}!`,
         );
       });
@@ -209,15 +209,15 @@ describe("Profanity", () => {
       });
 
       it("should censor profanity separated by hyphens", () => {
-        expect(profanity.censor("Don't be an ass-hole")).to.equal(`Don't be an ${profanity.options.grawlix}-hole`);
+        expect(profanity.censor("Don't be a butt-head")).to.equal(`Don't be a ${profanity.options.grawlix}-head`);
       });
 
       it("should censor profanity separated by underscores", () => {
-        expect(profanity.censor("Don't be an ass_hole")).to.equal(`Don't be an ${profanity.options.grawlix}_hole`);
+        expect(profanity.censor("Don't be a butt_head")).to.equal(`Don't be a ${profanity.options.grawlix}_head`);
       });
 
       it("should censor profanity surrounded by emoji", () => {
-        expect(profanity.censor("That's 💩ass💩")).to.equal(`That's 💩${profanity.options.grawlix}💩`);
+        expect(profanity.censor("That's 💩butt💩")).to.equal(`That's 💩${profanity.options.grawlix}💩`);
       });
     });
 
@@ -228,23 +228,23 @@ describe("Profanity", () => {
       });
 
       it("should preserve case when censoring first character", () => {
-        expect(profanity.censor("Don't be an AsS", CensorType.FirstChar)).to.equal(`Don't be an ${profanity.options.grawlixChar}sS`);
+        expect(profanity.censor("Don't be a BuTt", CensorType.FirstChar)).to.equal(`Don't be a ${profanity.options.grawlixChar}uTt`);
       });
 
       it("should censor first character of profanity at the beginning of a sentence", () => {
-        expect(profanity.censor("Ass is a profane word", CensorType.FirstChar)).to.equal(`${profanity.options.grawlixChar}ss is a profane word`);
+        expect(profanity.censor("Butt is a profane word", CensorType.FirstChar)).to.equal(`${profanity.options.grawlixChar}utt is a profane word`);
       });
 
       it("should censor first character of profanity at the end of a sentence", () => {
-        expect(profanity.censor("Don't be an ass.", CensorType.FirstChar)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss.`);
+        expect(profanity.censor("Don't be a butt.", CensorType.FirstChar)).to.equal(`Don't be a ${profanity.options.grawlixChar}utt.`);
       });
 
       it("should censor first character of profanity separated by hyphens", () => {
-        expect(profanity.censor("Don't be an ass-hole", CensorType.FirstChar)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss-hole`);
+        expect(profanity.censor("Don't be a butt-head", CensorType.FirstChar)).to.equal(`Don't be a ${profanity.options.grawlixChar}utt-head`);
       });
 
       it("should censor first character of profanity separated by underscores", () => {
-        expect(profanity.censor("Don't be an ass_hole", CensorType.FirstChar)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss_hole`);
+        expect(profanity.censor("Don't be a butt_head", CensorType.FirstChar)).to.equal(`Don't be a ${profanity.options.grawlixChar}utt_head`);
       });
     });
 
@@ -259,11 +259,11 @@ describe("Profanity", () => {
       });
 
       it("should censor first vowel of profanity at the beginning of a sentence", () => {
-        expect(profanity.censor("Ass is a profane word", CensorType.FirstVowel)).to.equal(`${profanity.options.grawlixChar}ss is a profane word`);
+        expect(profanity.censor("Butt is a profane word", CensorType.FirstVowel)).to.equal(`B${profanity.options.grawlixChar}tt is a profane word`);
       });
 
       it("should censor first vowel of profanity at the end of a sentence", () => {
-        expect(profanity.censor("Don't be an ass.", CensorType.FirstVowel)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss.`);
+        expect(profanity.censor("Don't be a butt.", CensorType.FirstVowel)).to.equal(`Don't be a b${profanity.options.grawlixChar}tt.`);
       });
 
       it("should handle profane words with no vowels", () => {
@@ -271,11 +271,11 @@ describe("Profanity", () => {
       });
 
       it("should censor first vowel of profanity separated by hyphens", () => {
-        expect(profanity.censor("Don't be an ass-hole", CensorType.FirstVowel)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss-hole`);
+        expect(profanity.censor("Don't be a butt-head", CensorType.FirstVowel)).to.equal(`Don't be a b${profanity.options.grawlixChar}tt-head`);
       });
 
       it("should censor first vowel of profanity separated by underscores", () => {
-        expect(profanity.censor("Don't be an ass_hole", CensorType.FirstVowel)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss_hole`);
+        expect(profanity.censor("Don't be a butt_head", CensorType.FirstVowel)).to.equal(`Don't be a b${profanity.options.grawlixChar}tt_head`);
       });
     });
 
@@ -288,15 +288,15 @@ describe("Profanity", () => {
       });
 
       it("should preserve case when censoring all vowels", () => {
-        expect(profanity.censor("AsS", CensorType.AllVowels)).to.equal(`${profanity.options.grawlixChar}sS`);
+        expect(profanity.censor("BuTt", CensorType.AllVowels)).to.equal(`B${profanity.options.grawlixChar}Tt`);
       });
 
       it("should censor all vowels of profanity at the beginning of a sentence", () => {
-        expect(profanity.censor("Ass is a profane word", CensorType.AllVowels)).to.equal(`${profanity.options.grawlixChar}ss is a profane word`);
+        expect(profanity.censor("Butt is a profane word", CensorType.AllVowels)).to.equal(`B${profanity.options.grawlixChar}tt is a profane word`);
       });
 
       it("should censor all vowels of profanity at the end of a sentence", () => {
-        expect(profanity.censor("Don't be an ass.", CensorType.AllVowels)).to.equal(`Don't be an ${profanity.options.grawlixChar}ss.`);
+        expect(profanity.censor("Don't be a butt.", CensorType.AllVowels)).to.equal(`Don't be a b${profanity.options.grawlixChar}tt.`);
       });
 
       it("should handle profane words with no vowels", () => {
@@ -306,19 +306,19 @@ describe("Profanity", () => {
 
     describe("Case sensitivity", () => {
       it("should censor while preserving case", () => {
-        expect(profanity.censor("Don't be an AsS")).to.equal("Don't be an @#$%&!");
+        expect(profanity.censor("Don't be a BuTt")).to.equal("Don't be a @#$%&!");
       });
 
       it("should censor all uppercase profanity", () => {
-        expect(profanity.censor("DON'T BE AN ASS")).to.equal("DON'T BE AN @#$%&!");
+        expect(profanity.censor("DON'T BE A BUTT")).to.equal("DON'T BE A @#$%&!");
       });
 
       it("should censor mixed case profanity", () => {
-        expect(profanity.censor("Don't Be An aSs")).to.equal("Don't Be An @#$%&!");
+        expect(profanity.censor("Don't Be A bUtT")).to.equal("Don't Be A @#$%&!");
       });
 
       it("should censor profanity with alternating case", () => {
-        expect(profanity.censor("dOn'T bE aN aSs")).to.equal("dOn'T bE aN @#$%&!");
+        expect(profanity.censor("dOn'T bE a BuTt")).to.equal("dOn'T bE a @#$%&!");
       });
     });
   });
@@ -371,8 +371,8 @@ describe("Profanity", () => {
       });
 
       it("should not detect removed words", () => {
-        customProfanity.removeWords(["ass", "arse"]);
-        expect(customProfanity.exists("Don't be an ass")).to.be.false;
+        customProfanity.removeWords(["butt", "arse"]);
+        expect(customProfanity.exists("Don't be a butt")).to.be.false;
         expect(customProfanity.exists("You're an arse")).to.be.false;
       });
 
@@ -482,7 +482,7 @@ describe("Profanity", () => {
     it("should detect profanity after removing from whitelist", () => {
       customProfanity.whitelist.addWords(["classic"]);
       customProfanity.whitelist.removeWords(["classic"]);
-      expect(customProfanity.exists("That's a classic ass movie")).to.be.true;
+      expect(customProfanity.exists("That's a classic butt movie")).to.be.true;
     });
 
     it("should handle adding and removing words from whitelist in sequence", () => {
@@ -496,12 +496,12 @@ describe("Profanity", () => {
     describe("Custom grawlix", () => {
       it("should use custom grawlix string", () => {
         const customProfanity = new Profanity({ grawlix: "!@#" });
-        expect(customProfanity.censor("Don't be an ass")).to.equal("Don't be an !@#");
+        expect(customProfanity.censor("Don't be a butt")).to.equal("Don't be a !@#");
       });
 
       it("should use custom grawlix character", () => {
         const customProfanity = new Profanity({ grawlixChar: "X" });
-        expect(customProfanity.censor("You're a bitch", CensorType.FirstChar)).to.equal("You're a Xitch");
+        expect(customProfanity.censor("You're a butt", CensorType.FirstChar)).to.equal("You're a Xutt");
       });
     });
   });
