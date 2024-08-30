@@ -5,9 +5,9 @@ export class ProfanityOptions {
 
   grawlixChar: string;
 
-  constructor() {
-    this.wholeWord = true;
-    this.grawlix = "@#$%&!";
-    this.grawlixChar = "*";
+  constructor(options: Partial<ProfanityOptions> = {}) {
+    this.wholeWord = options.wholeWord ?? true;
+    this.grawlix = options.grawlix ?? "@#$%&!";
+    this.grawlixChar = options.grawlixChar ?? "*";
   }
 }

@@ -12,8 +12,8 @@ export class Profanity {
 
   private regex: RegExp;
 
-  constructor(options?: ProfanityOptions) {
-    this.options = options || new ProfanityOptions();
+  constructor(options?: ProfanityOptions | Partial<ProfanityOptions>) {
+    this.options = options ? { ...new ProfanityOptions(), ...options } : new ProfanityOptions();
     this.whitelist = new List(() => this.buildRegex());
     this.blacklist = new List(() => this.buildRegex());
     this.blacklist.addWords(profaneWords);
