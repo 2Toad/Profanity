@@ -1,7 +1,7 @@
 import { ProfanityOptions } from "./profanity-options";
 import { List, CensorType } from "./models";
-import { escapeRegExp } from "./utils/misc";
-import profaneWords from "./data/profane-words";
+import { escapeRegExp } from "./utils";
+import { profaneWords } from "./data";
 
 export class Profanity {
   options: ProfanityOptions;
@@ -75,4 +75,3 @@ export class Profanity {
 }
 
 export const profanity = new Profanity();
-export default profanity;

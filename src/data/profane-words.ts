@@ -1,7 +1,7 @@
 // WARNING: this file contains profanity. The below list of profane words is necessary for this tool to function properly.
 // Do not read below this line if you do not wish to be exposed to lots of profane words
 
-export default [
+export const profaneWords: readonly string[] = [
   "4r5e",
   "5h1t",
   "5hit",
