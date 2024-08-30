@@ -58,6 +58,12 @@ By default, this is set to `true` so profanity only matches on whole words:
 ```JavaScript
 profanity.exists('Arsenic is poisonous but not profane');
 // false
+
+profanity.exists("Don't be a butt-head");
+// true (hyphenated words are considered whole words)
+
+profanity.exists("Don't be a butt_head");
+// true (underscore-separated words are considered whole words)
 ```
 
 Setting this to `false`, results in partial word matches:
