@@ -1,8 +1,90 @@
 import { expect } from "chai";
 
-import { profanity, Profanity, CensorType } from "../src";
+import { profanity, Profanity, CensorType, ProfanityOptions } from "../src";
 
 describe("Profanity", () => {
+  describe("Class instantiation", () => {
+    describe("ProfanityOptions", () => {
+      it("should create ProfanityOptions with default values", () => {
+        const options = new ProfanityOptions();
+        expect(options.wholeWord).to.be.true;
+        expect(options.grawlix).to.equal("@#$%&!");
+        expect(options.grawlixChar).to.equal("*");
+      });
+
+      it("should create ProfanityOptions with custom values", () => {
+        const options = new ProfanityOptions();
+        options.wholeWord = false;
+        options.grawlix = "***";
+        options.grawlixChar = "#";
+        expect(options.wholeWord).to.be.false;
+        expect(options.grawlix).to.equal("***");
+        expect(options.grawlixChar).to.equal("#");
+      });
+
+      it("should create ProfanityOptions with all partial custom values", () => {
+        const options = new ProfanityOptions({
+          wholeWord: false,
+          grawlix: "***",
+          grawlixChar: "#",
+        });
+        expect(options.wholeWord).to.be.false;
+        expect(options.grawlix).to.equal("***");
+        expect(options.grawlixChar).to.equal("#");
+      });
+
+      it("should create ProfanityOptions with some partial custom values", () => {
+        const options = new ProfanityOptions({
+          wholeWord: false,
+        });
+        expect(options.wholeWord).to.be.false;
+        expect(options.grawlix).to.equal("@#$%&!");
+        expect(options.grawlixChar).to.equal("*");
+      });
+    });
+
+    describe("Profanity", () => {
+      it("should create Profanity instance with default options", () => {
+        const profanityInstance = new Profanity();
+        expect(profanityInstance.options.wholeWord).to.be.true;
+        expect(profanityInstance.options.grawlix).to.equal("@#$%&!");
+        expect(profanityInstance.options.grawlixChar).to.equal("*");
+      });
+
+      it("should create Profanity instance with custom options", () => {
+        const options = new ProfanityOptions({
+          wholeWord: false,
+          grawlix: "***",
+          grawlixChar: "#",
+        });
+        const profanityInstance = new Profanity(options);
+        expect(profanityInstance.options.wholeWord).to.be.false;
+        expect(profanityInstance.options.grawlix).to.equal("***");
+        expect(profanityInstance.options.grawlixChar).to.equal("#");
+      });
+
+      it("should create Profanity instance with all partial custom options", () => {
+        const profanityInstance = new Profanity({
+          wholeWord: false,
+          grawlix: "***",
+          grawlixChar: "#",
+        });
+        expect(profanityInstance.options.wholeWord).to.be.false;
+        expect(profanityInstance.options.grawlix).to.equal("***");
+        expect(profanityInstance.options.grawlixChar).to.equal("#");
+      });
+
+      it("should create Profanity instance with some partial custom options", () => {
+        const profanityInstance = new Profanity({
+          wholeWord: false,
+        });
+        expect(profanityInstance.options.wholeWord).to.be.false;
+        expect(profanityInstance.options.grawlix).to.equal("@#$%&!");
+        expect(profanityInstance.options.grawlixChar).to.equal("*");
+      });
+    });
+  });
+
   describe("exists", () => {
     describe("wholeWord = true", () => {
       it("should return true when profanity exists in a sentence", () => {
