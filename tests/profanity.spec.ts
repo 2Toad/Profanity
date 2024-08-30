@@ -505,4 +505,32 @@ describe("Profanity", () => {
       });
     });
   });
+
+  describe("Multi-word profanities", () => {
+    it("should detect multi-word profanities", () => {
+      expect(profanity.exists("He's a fudge packer")).to.be.true;
+      expect(profanity.exists("That's a blow job")).to.be.true;
+      expect(profanity.exists("Don't be a son-of-a-bitch")).to.be.true;
+    });
+
+    it("should censor multi-word profanities", () => {
+      expect(profanity.censor("He's a fudge packer")).to.equal(`He's a ${profanity.options.grawlix}`);
+      expect(profanity.censor("That's a blow job")).to.equal(`That's a ${profanity.options.grawlix}`);
+      expect(profanity.censor("Don't be a son-of-a-bitch")).to.equal(`Don't be a ${profanity.options.grawlix}`);
+    });
+
+    it("should not detect partial matches of multi-word profanities", () => {
+      expect(profanity.exists("I like to pack fudge for desserts")).to.be.false;
+      expect(profanity.exists("The wind blew jobs away")).to.be.false;
+      expect(profanity.exists("He's the son of a businessman")).to.be.false;
+    });
+
+    it("should handle multi-word profanities with different censor types", () => {
+      expect(profanity.censor("He's a fudge packer", CensorType.FirstChar)).to.equal(`He's a ${profanity.options.grawlixChar}udge packer`);
+      expect(profanity.censor("That's a blow job", CensorType.FirstVowel)).to.equal(`That's a bl${profanity.options.grawlixChar}w job`);
+      expect(profanity.censor("Don't be a son-of-a-bitch", CensorType.AllVowels)).to.equal(
+        `Don't be a s${profanity.options.grawlixChar}n-${profanity.options.grawlixChar}f-${profanity.options.grawlixChar}-b${profanity.options.grawlixChar}tch`,
+      );
+    });
+  });
 });
