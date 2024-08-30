@@ -17,7 +17,7 @@ export class List {
     this.onListChanged();
   }
 
-  addWords(words: string[]): void {
+  addWords(words: readonly string[] | string[]): void {
     this.words = this.words.concat(words);
     this.onListChanged();
   }
