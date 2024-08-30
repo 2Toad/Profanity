@@ -14,16 +14,17 @@ Install the package
 npm i @2toad/profanity
 ```
 
->If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.0`)
+>If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.1`)
 
 ## Usage 📚
 
 ```JavaScript
-import { profanity } from '@2toad/profanity';
+import { profanity, CensorType } from '@2toad/profanity';
 // or
-var profanity = require('@2toad/profanity').profanity;
+const { profanity, CensorType } = require('@2toad/profanity');
+```
 
-
+```JavaScript
 profanity.exists('I like big butts and I cannot lie');
 // true
 
