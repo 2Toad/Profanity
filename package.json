@@ -63,7 +63,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-security": "^1.7.1",
+    "eslint-plugin-security": "^3.0.1",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.9",
     "mocha": "^10.7.3",
