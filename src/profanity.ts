@@ -44,6 +44,7 @@ export class Profanity {
               matchStart === whitelistedIndex &&
               matchEnd === whitelistedEnd &&
               (matchStart === 0 || !/[\w-_]/.test(lowercaseText[matchStart - 1])) &&
+              // eslint-disable-next-line security/detect-object-injection
               (matchEnd === lowercaseText.length || !/[\w-_]/.test(lowercaseText[matchEnd]))
             );
           }
@@ -115,6 +116,7 @@ export class Profanity {
   private buildRegex(): void {
     const escapedBlacklistWords = this.blacklist.words.map(escapeRegExp);
     const profanityPattern = `${this.options.wholeWord ? "(?:\\b|_)" : ""}(${escapedBlacklistWords.join("|")})${this.options.wholeWord ? "(?:\\b|_)" : ""}`;
+    // eslint-disable-next-line security/detect-non-literal-regexp
     this.regex = new RegExp(profanityPattern, "gi");
   }
 }
