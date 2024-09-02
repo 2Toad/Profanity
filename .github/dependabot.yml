@@ -10,3 +10,6 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "1.x.x"
+    labels:
+      - "dependencies"
+      - "1.x.x"

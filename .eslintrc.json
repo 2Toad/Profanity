@@ -1,23 +1,43 @@
 {
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es2019": true
   },
-  "extends": ["airbnb-base", "airbnb-typescript/base", "plugin:security/recommended", "plugin:prettier/recommended"],
-  "plugins": ["security", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:security/recommended-legacy",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2019,
+    "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "no-console": "off",
     "func-names": "off",
     "no-underscore-dangle": "off",
     "consistent-return": "off",
-    "security/detect-object-injection": "off",
-    "security/detect-non-literal-regexp": "off",
     "import/no-named-as-default-member": "off",
     "import/prefer-default-export": "off",
-    "class-methods-use-this": "off"
-  }
+    "class-methods-use-this": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "prettier/prettier": "error"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*.ts"],
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
 }
