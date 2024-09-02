@@ -30,5 +30,7 @@ updates:
         versions: '>= 7'
       - dependency-name: "mocha"
         versions: '>= 9'
+      - dependency-name: "rimraf"
+        versions: '>= 3'
       - dependency-name: "typescript"
         versions: '>= 4'
