@@ -5,6 +5,12 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "master"
+    ignore:
+      - dependency-name: "chai"
+        versions: '>= 4'
+      - dependency-name: "eslint"
+        versions: '>= 8'
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -13,3 +19,16 @@ updates:
     labels:
       - "dependencies"
       - "1.x.x"
+    ignore:
+      - dependency-name: "@types/mocha"
+        versions: '>= 9'
+      - dependency-name: "@types/node"
+        versions: '>= 17'
+      - dependency-name: "chai"
+        versions: '>= 4'
+      - dependency-name: "eslint"
+        versions: '>= 7'
+      - dependency-name: "mocha"
+        versions: '>= 9'
+      - dependency-name: "typescript"
+        versions: '>= 4'
