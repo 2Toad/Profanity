@@ -6,7 +6,7 @@
 
 A JavaScript profanity filter (with TypeScript support)
 
-## Getting Started 🚀
+## Getting Started
 
 Install the package
 
@@ -14,9 +14,9 @@ Install the package
 npm i @2toad/profanity
 ```
 
->If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases) (e.g., `npm i @2toad/profanity@1.4.1`)
+>If you're using Node 11.x or older, you'll need to install [Profanity 1.x](https://github.com/2Toad/Profanity/releases)
 
-## Usage 📚
+## Usage
 
 ```JavaScript
 import { profanity, CensorType } from '@2toad/profanity';
@@ -38,7 +38,7 @@ profanity.censor('I like big butts (aka arses) and I cannot lie', CensorType.Fir
 // I like big *utts (aka *rses) and I cannot lie
 ```
 
-## Options ⚙️
+## Options
 Create an instance of the Profanity class to change the default options:
 
 ```JavaScript
@@ -51,7 +51,7 @@ const profanity = new Profanity({
 });
 ```
 
-### wholeWord 🔤
+### wholeWord
 
 By default, this is set to `true` so profanity only matches on whole words:
 ```JavaScript
@@ -82,7 +82,7 @@ profanity.exists("Don't be an arsenic-monster");
 // true (matched on arse)
 ```
 
-### grawlix 💥
+### grawlix
 
 By default this is set to `@#$%&!`:
 ```JavaScript
@@ -96,7 +96,7 @@ profanity.censor('I like big butts and I cannot lie');
 // I like big **** and I cannot lie
 ```
 
-### grawlixChar 💲
+### grawlixChar
 
 When specifying a `CensorType` other than `CensorType.Word`, this is the character used by the `censor` function.
 
@@ -113,7 +113,7 @@ profanity.censor('I like big butts and I cannot lie', CensorType.AllVowels);
 ```
 
 
-## Customize the word list 📝
+## Customize the word list
 
 Add words:
 ```JavaScript
@@ -125,7 +125,7 @@ Remove words:
 profanity.removeWords(['butt', 'arse']);
 ```
 
-## Whitelist ✅
+## Whitelist
 The whitelist allows you to specify words that are always ignored by the profanity filter.
 
 >This can be useful if you want to enable partial word matching (`wholeWord = false`), so combined words are caught (e.g., arselicker), while specific words you add to the whitelist are ignored (e.g., arsenic).
@@ -139,6 +139,10 @@ Remove words from the whitelist:
 ```JavaScript
 profanity.whitelist.removeWords(['arsenic', 'buttress']);
 ```
+
+## Benchmarking ⏱️
+
+To see how Profanity performs, check out our [benchmark results](./src/benchmark/results.md).
 
 ## Contributing 🤝
 

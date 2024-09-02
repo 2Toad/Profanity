@@ -1,10 +1,10 @@
-# Benchmark Results
+# Benchmark Results ⏱️
 
 ## Test Environment
 
-- OS: Windows 11 - WSL2 (Ubuntu 22.04.4 LTS)
-- CPU: AMD Ryzen 9 5900HX 3.30 GHz
-- RAM: 64.0 GB
+- **OS**: Windows 11 - WSL2 (Ubuntu 22.04.4 LTS)
+- **CPU**: AMD Ryzen 9 5900HX 3.30 GHz
+- **RAM**: 64 GB
 
 ### Benchmarks
 
@@ -22,5 +22,5 @@ censor() - FirstVowel, small profane text x 1,894,666 ops/sec ±0.92% (92 runs s
 censor() - AllVowels, small profane text x 1,697,305 ops/sec ±2.07% (92 runs sampled)
 censor() - Word, large profane text x 9,563 ops/sec ±0.91% (87 runs sampled)
 censor() - partial match, Word, small profane text x 1,597,856 ops/sec ±1.19% (92 runs sampled)
-Fastest is "exists() - small clean text"
+Fastest: exists() - small clean text
 ```
