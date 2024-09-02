@@ -71,34 +71,37 @@ The Profanity project includes Husky for running Git Hooks. Running `git commit`
 
 - `chai`: we must use v4.x because v5.x is pure ESM, and we require CommonJS modules
 
-### Deployments
+### Deployment
 
-Deployments to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continous Deployment workflow.
+Deploying to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continuous Deployment workflow.
 
-#### 1. Change Version
-1. Checkout `master`
-2. Increment version (semantic) in package.json (e.g., 1.1.0)
-3. Rebuild package-lock (to pick up new version ): `npm i --package-lock-only`
-4. Push changes:
+#### 1. Create New Version
+1. Checkout `master`.
+2. Increment the version in package.json, using semantic versioning (e.g., `1.1.0`).
+3. Perform benchmarking:
+   1. Run the script: `npm run benchmark`.
+   2. Record the results in [benchmark/results.md](./src/benchmark/results.md), for the new version.
+4. Rebuild package-lock, to pick up the new version number: `npm i --package-lock-only`.
+5. Push changes:
    ```
    git add .
-   git commmit -m "Bump version to 1.1.0"
+   git commit -m "Bump version to 1.1.0"
    git push
    ```
 
 #### 2. Verify Checks
-1. Navigate to the [CI](https://github.com/2Toad/Profanity/actions/workflows/ci.yml) workflow
-2. Ensure the run for the above "Bump version" commit succeeds
+1. Navigate to the [CI](https://github.com/2Toad/Profanity/actions/workflows/ci.yml) workflow.
+2. Ensure the build checks for this push succeed.
 
 #### 3. Publish GitHub Release
-1. Navigate to [Profanity's releases](https://github.com/2Toad/Profanity/releases)
-2. Click "Draft a new release"
+1. Navigate to [Profanity's releases](https://github.com/2Toad/Profanity/releases).
+2. Click "Draft a new release":
    - **Choose a tag**: enter version (e.g., `v1.1.0`) and click "Create new tag"
    - **Target**: `master`
    - **Previous tag**: `auto`
    - **Release title**: (e.g., `1.1.0`)
-   - **Description**: click the "Genereate release notes"
+   - **Description**: click the "Generate release notes"
    - [x] **Set as the latest release**
-3. Click "Publish release"
+3. Click "Publish release".
 
 > This will trigger the [CDP](https://github.com/2Toad/Profanity/actions/workflows/cdp.yml) workflow, which will build and deploy the package to NPM: https://www.npmjs.com/package/@2toad/profanity
