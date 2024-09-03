@@ -172,4 +172,15 @@ describe("exists", () => {
       expect(profanity.exists("He's the son of a businessman")).to.be.false;
     });
   });
+
+  describe("Input type handling", () => {
+    it("should return false for non-string input", () => {
+      expect(profanity.exists(null as any)).to.be.false;
+      expect(profanity.exists(undefined as any)).to.be.false;
+      expect(profanity.exists(123 as any)).to.be.false;
+      expect(profanity.exists(true as any)).to.be.false;
+      expect(profanity.exists({} as any)).to.be.false;
+      expect(profanity.exists([] as any)).to.be.false;
+    });
+  });
 });

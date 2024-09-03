@@ -170,4 +170,15 @@ describe("censor", () => {
       );
     });
   });
+
+  describe("Input type handling", () => {
+    it("should return original input for non-string input", () => {
+      expect(profanity.censor(null as any)).to.be.null;
+      expect(profanity.censor(undefined as any)).to.be.undefined;
+      expect(profanity.censor(123 as any)).to.equal(123);
+      expect(profanity.censor(true as any)).to.be.true;
+      expect(profanity.censor({} as any)).to.deep.equal({});
+      expect(profanity.censor([] as any)).to.deep.equal([]);
+    });
+  });
 });
