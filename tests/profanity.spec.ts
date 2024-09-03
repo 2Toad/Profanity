@@ -150,7 +150,7 @@ describe("Profanity", () => {
       });
 
       it("should whitelist multiple words", () => {
-        customProfanityPartial.whitelist.addWords(["buttocks", "arsenic"]);
+        customProfanityPartial.whitelist.addWords(["buttocks", "arsenic", "ho"]);
         expect(customProfanityPartial.exists("Should we censor the word buttocks or arsenic?")).to.be.false;
       });
 
