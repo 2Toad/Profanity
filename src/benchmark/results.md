@@ -8,6 +8,23 @@
 
 ### Benchmarks
 
+#### v2.?.?
+```
+Using test data: v1
+exists() - small clean text x 6,750,770 ops/sec ±0.70% (89 runs sampled)
+exists() - small profane text x 5,339,471 ops/sec ±0.61% (92 runs sampled)
+exists() - large clean text x 47,087 ops/sec ±1.98% (94 runs sampled)
+exists() - large profane text x 1,404,666 ops/sec ±1.25% (91 runs sampled)
+exists() - partial match, small profane text x 11,209,524 ops/sec ±0.84% (92 runs sampled)
+censor() - Word, small profane text x 1,719,756 ops/sec ±0.44% (91 runs sampled)
+censor() - FirstChar, small profane text x 3,133,181 ops/sec ±0.61% (94 runs sampled)
+censor() - FirstVowel, small profane text x 1,720,002 ops/sec ±0.89% (93 runs sampled)
+censor() - AllVowels, small profane text x 1,656,094 ops/sec ±0.69% (93 runs sampled)
+censor() - Word, large profane text x 9,539 ops/sec ±0.45% (94 runs sampled)
+censor() - partial match, Word, small profane text x 1,173,768 ops/sec ±0.59% (94 runs sampled)
+Fastest: exists() - partial match, small profane text
+```
+
 #### v2.4.0
 ```
 Using test data: v1
