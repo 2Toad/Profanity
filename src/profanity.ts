@@ -20,6 +20,9 @@ export class Profanity {
   }
 
   exists(text: string): boolean {
+    if (typeof text !== "string") {
+      return false;
+    }
     this.regex.lastIndex = 0;
     const lowercaseText = text.toLowerCase();
 
@@ -63,6 +66,9 @@ export class Profanity {
   }
 
   censor(text: string, censorType: CensorType = CensorType.Word): string {
+    if (typeof text !== "string") {
+      return text;
+    }
     const lowercaseText = text.toLowerCase();
 
     switch (censorType) {
