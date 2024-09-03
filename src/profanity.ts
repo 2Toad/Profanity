@@ -20,6 +20,7 @@ export class Profanity {
   }
 
   exists(text: string): boolean {
+    text = typeof text === 'string' ? text : '';
     this.regex.lastIndex = 0;
     const lowercaseText = text.toLowerCase();
 
