@@ -2,4 +2,10 @@
 .husky
 dist
 node_modules
+.eslintcache
+.gitattributes
+.gitignore
+.npmignore
+.nvmrc
+.prettierignore
 *.md

@@ -1,11 +1,9 @@
 # compiled output
 /dist
+.eslintcache
 
 # dependencies
 /node_modules
-
-# testing
-.eslintcache
 
 # IDE - VSCode
 .vscode/*
