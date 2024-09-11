@@ -8,8 +8,6 @@ updates:
     ignore:
       - dependency-name: "chai"
         versions: ">= 4"
-      - dependency-name: "eslint"
-        versions: ">= 8"
 
   - package-ecosystem: "npm"
     directory: "/"
