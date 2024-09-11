@@ -1,6 +1,6 @@
 # Contribute to the Profanity project 🤝
 
-Thank you for wanting to contribute to the Profanity project. With your contributions we can ensure Profanity remains a leading solution for filtering profanity within JavaScript projects
+Thank you for wanting to contribute to the Profanity project. With your contributions we can ensure Profanity remains a leading solution for filtering profanity within JavaScript projects.
 
 ## Steps for success
 
@@ -12,10 +12,9 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
    2. If the Issue you are working on has a `1.x.x` label on it, you must branch off of the `1.x.x` branch. Otherwise, please branch off of `master`.
 3. [Pull Request](https://github.com/2Toad/Profanity/pulls) (PR):
    1. Make sure you run the following scripts in local, and that all of them pass, before submitting a PR:
-      1. `npm run lint`
-      2. `npm run prettier`
-      3. `npm run build`
-      4. `npm test`
+      1. `npm run lint:fix`
+      2. `npm run format`
+      3. `npm test`
    2. Make sure your PR is targeting the correct branch (see Step 2.ii)
    3. At the top of your PR description write: "Fixes #_n_". Where _n_ is the number of the Issue your PR is fixing (e.g., `Fixes #33`). This will tell GitHub to associate your PR with the Issue.
 
@@ -42,8 +41,7 @@ Start app in watch mode: `npm run local`
 
 - Check lint rules: `npm run lint`
 - Fix lint errors: `npm run lint:fix`
-- Check formatting rules: `npm run prettier`
-- Fix formatting errors: `npm run prettier:fix`
+- Fix formatting errors: `npm run format`
 
 ## Appendix
 
@@ -53,7 +51,7 @@ The following section includes optional dev tools that enhance the Profanity dev
 
 #### NVM
 
-The Profanity project includes an .nvmrc file, so you can run `nvm use` to switch to the proper version of Node.
+The Profanity project includes an .nvmrc file, so you can run `nvm use` to switch to the required version of Node.
 
 ##### Setup
 
@@ -73,7 +71,7 @@ The Profanity project includes Husky for running Git Hooks. Running `git commit`
 
 ### Deployment
 
-Deploying to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continuous Deployment workflow.
+Deployments to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continuous Deployment workflow.
 
 #### 1. Create New Version
 1. Checkout `master`.

@@ -13,15 +13,14 @@
   "scripts": {
     "clean": "npx rimraf dist",
     "build": "npm run clean && npx tsc",
-    "local": "npm run build && concurrently -p \"none\" \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "local": "npm run clean && nodemon src/index.ts",
     "pretest": "npm run build",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "test:watch": "npm run test -- --watch",
     "benchmark": "ts-node src/benchmark/benchmark.ts",
     "lint": "eslint . --cache",
-    "lint:fix": "eslint . --cache --fix",
-    "prettier": "prettier --check **/*.ts",
-    "prettier:fix": "prettier --write **/*.ts",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
     "prepublishOnly": "npm run lint && npm run prettier && npm test",
     "prepare": "husky"
   },
@@ -51,21 +50,20 @@
     "filter"
   ],
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
     "@types/benchmark": "^2.1.5",
     "@types/chai": "^4.3.19",
     "@types/mocha": "^10.0.7",
     "@types/node": "^22.5.2",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
     "benchmark": "^2.1.4",
     "chai": "^4.5.0",
-    "concurrently": "^9.0.0",
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-security": "^3.0.1",
+    "globals": "^15.9.0",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
     "mocha": "^10.7.3",
@@ -73,7 +71,8 @@
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0"
   },
   "overrides": {
     "inflight": "^2.0.0",
@@ -81,9 +80,7 @@
     "rimraf": "^6.0.1"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --cache --fix",
-      "prettier --write"
-    ]
+    "*.ts": "eslint --cache --fix",
+    "*": "prettier --write"
   }
 }
