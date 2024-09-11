@@ -7,9 +7,9 @@ updates:
     target-branch: "master"
     ignore:
       - dependency-name: "chai"
-        versions: '>= 4'
+        versions: ">= 4"
       - dependency-name: "eslint"
-        versions: '>= 8'
+        versions: ">= 8"
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -21,16 +21,16 @@ updates:
       - "1.x.x"
     ignore:
       - dependency-name: "@types/mocha"
-        versions: '>= 9'
+        versions: ">= 9"
       - dependency-name: "@types/node"
-        versions: '>= 17'
+        versions: ">= 17"
       - dependency-name: "chai"
-        versions: '>= 4'
+        versions: ">= 4"
       - dependency-name: "eslint"
-        versions: '>= 7'
+        versions: ">= 7"
       - dependency-name: "mocha"
-        versions: '>= 9'
+        versions: ">= 9"
       - dependency-name: "rimraf"
-        versions: '>= 3'
+        versions: ">= 3"
       - dependency-name: "typescript"
-        versions: '>= 4'
+        versions: ">= 4"

@@ -4,9 +4,9 @@
 name: CI
 on:
   push:
-    branches: [ "master", "1.x.x" ]
+    branches: ["master", "1.x.x"]
   pull_request:
-    branches: [ "master", "1.x.x" ]
+    branches: ["master", "1.x.x"]
 
 jobs:
   continuous-integration:
