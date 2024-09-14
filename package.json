@@ -21,7 +21,7 @@
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
-    "prepublishOnly": "npm run lint && npm run prettier && npm test",
+    "prepublishOnly": "npm run lint && npm test",
     "prepare": "husky"
   },
   "repository": {
