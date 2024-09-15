@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
 [![Build status](https://github.com/2toad/profanity/actions/workflows/ci.yml/badge.svg)](https://github.com/2Toad/Profanity/actions/workflows/nodejs.yml)
 
-A JavaScript profanity filter (with TypeScript support)
+A JavaScript profanity filter with full TypeScript support
 
 ## Getting Started
 
