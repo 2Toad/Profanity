@@ -1,7 +1,7 @@
 {
   "name": "@2toad/profanity",
   "version": "2.5.0",
-  "description": "A JavaScript profanity filter",
+  "description": "A JavaScript profanity filter with full TypeScript support",
   "homepage": "https://github.com/2Toad/Profanity",
   "author": "2Toad",
   "license": "MIT",
