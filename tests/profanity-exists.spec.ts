@@ -183,4 +183,30 @@ describe("exists", () => {
       expect(profanity.exists([] as any)).to.be.false;
     });
   });
+
+  describe("Language specified", () => {
+    it("should return true when profanity exists in a sentence and a language is specified", () => {
+      expect(profanity.exists("I like big butts and I cannot lie", ["en"])).to.be.true;
+    });
+
+    it("should return false when profanity is not a whole word in a sentence and a language is specified", () => {
+      expect(profanity.exists("Should we censor the word arsenic?", ["en"])).to.be.false;
+    });
+  });
+
+  describe("Language specified (multiple)", () => {
+    it("should return true when profanity exists in a sentence and a language is specified", () => {
+      expect(profanity.exists("I like big butts and I cannot lie", ["en", "de"])).to.be.true;
+    });
+
+    it("should return false when profanity is not a whole word in a sentence and a language is specified", () => {
+      expect(profanity.exists("Should we censor the word arsenic?", ["en", "de"])).to.be.false;
+    });
+  });
+
+  describe("Should throw an error when an invalid language is specified", () => {
+    it("should throw an error when an invalid language is specified", () => {
+      expect(() => profanity.exists("I like big butts and I cannot lie", ["en", "invalid"])).to.throw('Invalid language: "invalid"');
+    });
+  });
 });

@@ -55,7 +55,9 @@ describe("Profanity", () => {
 
     describe("addWords", () => {
       it("should add multiple words to the list of profane words", () => {
+        console.info("before", customProfanity["blacklist"].words);
         customProfanity.addWords(["aardvark", "zebra"]);
+        console.info("after", customProfanity["blacklist"].words);
         expect(customProfanity.exists("Should we censor the word aardvark and zebra?")).to.be.true;
       });
 
