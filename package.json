@@ -1,7 +1,7 @@
 {
   "name": "@2toad/profanity",
   "version": "2.5.0",
-  "description": "A JavaScript profanity filter with full TypeScript support",
+  "description": "A multi-language profanity filter with full TypeScript support",
   "homepage": "https://github.com/2Toad/Profanity",
   "author": "2Toad",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "pretest": "npm run build",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "test:watch": "npm run test -- --watch",
-    "benchmark": "ts-node src/benchmark/benchmark.ts",
+    "benchmark": "docker-compose -f ./src/benchmark/docker-compose.yml up --build",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",

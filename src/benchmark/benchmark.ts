@@ -64,6 +64,10 @@ const { smallCleanText, smallProfaneText, largeCleanText, largeProfaneText } = t
 const defaultProfanity = new Profanity();
 const partialMatchProfanity = new Profanity({ wholeWord: false });
 
+// Pre-cache regexes
+defaultProfanity.exists("foo");
+partialMatchProfanity.exists("bar");
+
 // Benchmark exists() function
 suite
   .add("exists() - small clean text", () => {
