@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/npm/dm/@2toad/profanity.svg)](https://www.npmjs.com/package/@2toad/profanity)
 [![Build status](https://github.com/2toad/profanity/actions/workflows/ci.yml/badge.svg)](https://github.com/2Toad/Profanity/actions/workflows/nodejs.yml)
 
-A JavaScript profanity filter with full TypeScript support
+A multi-language profanity filter with full TypeScript support
 
 ## Getting Started
 
@@ -45,11 +45,34 @@ Create an instance of the Profanity class to change the default options:
 import { Profanity } from '@2toad/profanity';
 
 const profanity = new Profanity({
+    languages: ['de'],
     wholeWord: false,
     grawlix: '*****',
     grawlixChar: '$',
 });
 ```
+
+### languages
+
+By default, this is set to `['en']` (English). You can change the default to any [supported language](./supported-languages.md), including multiple languages:
+
+```JavaScript
+const profanity = new Profanity({
+    languages: ["en", "de"],
+});
+```
+
+You can override this option by specifying the languages in `exists` or `censor`:
+
+```JavaScript
+profanity.exists('Je suis un connard', ["fr"]);
+// true
+
+profanity.censor('I like big butts and je suis un connard', CensorType.Word, ["en", "de", "fr"]);
+// I like big @#$%&! and je suis un @#$%&!
+```
+
+If no languages are specified in the method call, it will use the languages specified in the options.
 
 ### wholeWord
 
@@ -111,7 +134,6 @@ Setting this to `$`, results in:
 profanity.censor('I like big butts and I cannot lie', CensorType.AllVowels);
 // I like big b$tts and I cannot lie
 ```
-
 
 ## Customize the word list
 
