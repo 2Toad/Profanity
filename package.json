@@ -17,7 +17,7 @@
     "pretest": "npm run build",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "test:watch": "npm run test -- --watch",
-    "benchmark": "ts-node src/benchmark/benchmark.ts",
+    "benchmark": "docker-compose -f ./src/benchmark/docker-compose.yml up --build",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",

@@ -1,0 +1,13 @@
+services:
+  benchmark:
+    build:
+      context: ../..
+      dockerfile: ./src/benchmark/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          cpus: "1.0"
+          memory: 512M
