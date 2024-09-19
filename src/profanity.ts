@@ -10,12 +10,16 @@ export class Profanity {
 
   private blacklist: List;
 
+  private removed: List;
+
   private regexes: Map<string, RegExp>;
 
   constructor(options?: ProfanityOptions | Partial<ProfanityOptions>) {
     this.options = options ? { ...new ProfanityOptions(), ...options } : new ProfanityOptions();
+
     this.whitelist = new List(() => this.clearRegexes());
     this.blacklist = new List(() => this.clearRegexes());
+    this.removed = new List(() => this.clearRegexes());
     this.regexes = new Map<string, RegExp>();
   }
 
@@ -118,11 +122,45 @@ export class Profanity {
   }
 
   addWords(words: string[]): void {
-    this.blacklist.addWords(words);
+    const removedWords: string[] = [];
+    const blacklistWords: string[] = [];
+
+    words.forEach((word) => {
+      const lowerCaseWord = word.toLowerCase();
+      if (this.removed.words.includes(lowerCaseWord)) {
+        removedWords.push(lowerCaseWord);
+      } else {
+        blacklistWords.push(lowerCaseWord);
+      }
+    });
+
+    if (removedWords.length) {
+      this.removed.removeWords(removedWords);
+    }
+    if (blacklistWords.length) {
+      this.blacklist.addWords(blacklistWords);
+    }
   }
 
   removeWords(words: string[]): void {
-    this.blacklist.removeWords(words.map((word) => word.toLowerCase()));
+    const blacklistedWords: string[] = [];
+    const removeWords: string[] = [];
+
+    words.forEach((word) => {
+      const lowerCaseWord = word.toLowerCase();
+      if (this.blacklist.words.includes(lowerCaseWord)) {
+        blacklistedWords.push(lowerCaseWord);
+      } else {
+        removeWords.push(lowerCaseWord);
+      }
+    });
+
+    if (blacklistedWords.length) {
+      this.blacklist.removeWords(blacklistedWords);
+    }
+    if (removeWords.length) {
+      this.removed.addWords(removeWords);
+    }
   }
 
   /**
@@ -151,7 +189,6 @@ export class Profanity {
 
     const regexKey = uniqueLanguages.sort().join(",");
     if (this.regexes.has(regexKey)) {
-      console.info("Regex cache hit for", regexKey);
       return this.regexes.get(regexKey)!;
     }
 
@@ -160,7 +197,7 @@ export class Profanity {
       if (!words) {
         throw new Error(`Invalid language: "${language}"`);
       }
-      return words;
+      return words.filter((word) => !this.removed.words.includes(word));
     });
 
     const regex = this.buildRegex(allWords);
