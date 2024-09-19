@@ -41,26 +41,31 @@ export class Profanity {
         const matchEnd = matchStart + match[0].length;
 
         // Check if the matched word is part of a whitelisted word
-        const isWhitelisted = this.whitelist.words.some((whitelistedWord) => {
+        let isWhitelisted = false;
+        this.whitelist.words.forEach((whitelistedWord) => {
           const whitelistedIndex = lowercaseText.indexOf(whitelistedWord, Math.max(0, matchStart - whitelistedWord.length + 1));
-          if (whitelistedIndex === -1) return false;
+          if (whitelistedIndex !== -1) {
+            const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
 
-          const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
-
-          if (this.options.wholeWord) {
-            // For whole word matching, ensure the whitelisted word exactly matches the profane word
-            // and is not part of a hyphenated or underscore-separated word
-            return (
-              matchStart === whitelistedIndex &&
-              matchEnd === whitelistedEnd &&
-              (matchStart === 0 || !/[\w-_]/.test(lowercaseText[matchStart - 1])) &&
-              // eslint-disable-next-line security/detect-object-injection
-              (matchEnd === lowercaseText.length || !/[\w-_]/.test(lowercaseText[matchEnd]))
-            );
+            if (this.options.wholeWord) {
+              // For whole word matching, ensure the whitelisted word exactly matches the profane word
+              // and is not part of a hyphenated or underscore-separated word
+              if (
+                matchStart === whitelistedIndex &&
+                matchEnd === whitelistedEnd &&
+                (matchStart === 0 || !/[\w-_]/.test(lowercaseText[matchStart - 1])) &&
+                // eslint-disable-next-line security/detect-object-injection
+                (matchEnd === lowercaseText.length || !/[\w-_]/.test(lowercaseText[matchEnd]))
+              ) {
+                isWhitelisted = true;
+              }
+            } else {
+              // For partial matching, check if the profane word is contained within the whitelisted word
+              if ((matchStart >= whitelistedIndex && matchStart < whitelistedEnd) || (matchEnd > whitelistedIndex && matchEnd <= whitelistedEnd)) {
+                isWhitelisted = true;
+              }
+            }
           }
-
-          // For partial matching, check if the profane word is contained within the whitelisted word
-          return (matchStart >= whitelistedIndex && matchStart < whitelistedEnd) || (matchEnd > whitelistedIndex && matchEnd <= whitelistedEnd);
         });
 
         if (!isWhitelisted) {
@@ -127,7 +132,7 @@ export class Profanity {
 
     words.forEach((word) => {
       const lowerCaseWord = word.toLowerCase();
-      if (this.removed.words.includes(lowerCaseWord)) {
+      if (this.removed.words.has(lowerCaseWord)) {
         removedWords.push(lowerCaseWord);
       } else {
         blacklistWords.push(lowerCaseWord);
@@ -148,7 +153,7 @@ export class Profanity {
 
     words.forEach((word) => {
       const lowerCaseWord = word.toLowerCase();
-      if (this.blacklist.words.includes(lowerCaseWord)) {
+      if (this.blacklist.words.has(lowerCaseWord)) {
         blacklistedWords.push(lowerCaseWord);
       } else {
         removeWords.push(lowerCaseWord);
@@ -197,7 +202,7 @@ export class Profanity {
       if (!words) {
         throw new Error(`Invalid language: "${language}"`);
       }
-      return words.filter((word) => !this.removed.words.includes(word));
+      return words.filter((word) => !this.removed.words.has(word));
     });
 
     const regex = this.buildRegex(allWords);

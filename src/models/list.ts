@@ -1,24 +1,24 @@
 export class List {
-  words: string[];
+  words: Set<string>;
 
   onListChanged: () => void;
 
   get empty(): boolean {
-    return !this.words.length;
+    return this.words.size === 0;
   }
 
   constructor(onListChanged: () => void) {
     this.onListChanged = onListChanged;
-    this.words = [];
+    this.words = new Set<string>();
   }
 
   removeWords(words: string[]): void {
-    this.words = this.words.filter((x) => !words.includes(x));
+    words.forEach((word) => this.words.delete(word));
     this.onListChanged();
   }
 
   addWords(words: readonly string[] | string[]): void {
-    this.words = this.words.concat(words.map((word: string) => word.toLowerCase()));
+    words.forEach((word) => this.words.add(word.toLowerCase()));
     this.onListChanged();
   }
 }
