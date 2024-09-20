@@ -8,8 +8,8 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
    1. Always work off of an Issue. Please do not submit a Pull Request that is not associated with an Issue (create the Issue if necessary).
    2. If you are beginning work on an Issue, please leave a comment on the issue letting us know, and we'll assign the Issue to you. This way somebody else won't start working on the same Issue.
 2. [Branches](https://github.com/2Toad/Profanity/branches):
-   1. We support two versions of Profanity: `1.x.x` and `master`. The `master` branch has features that require Node 12+, but we maintain the `1.x.x` branch for projects that require older versions of Node.
-   2. If the Issue you are working on has a `1.x.x` label on it, you must branch off of the `1.x.x` branch. Otherwise, please branch off of `master`.
+   1. We support two versions of Profanity: `1.x.x` and `main`. The `main` branch has features that require Node 12+, but we maintain the `1.x.x` branch for projects that require older versions of Node.
+   2. If the Issue you are working on has a `1.x.x` label on it, you must branch off of the `1.x.x` branch. Otherwise, please branch off of `main`.
 3. [Pull Request](https://github.com/2Toad/Profanity/pulls) (PR):
    1. Make sure you run the following scripts in local, and that all of them pass, before submitting a PR:
       1. `npm run lint:fix`
@@ -22,7 +22,7 @@ Thank you for wanting to contribute to the Profanity project. With your contribu
 
 ### Prerequisites
 
-- `master` branch: [Node 20+](https://nodejs.org)
+- `main` branch: [Node 20+](https://nodejs.org)
 - `1.x.x` branch: [Node 10.23.0](https://nodejs.org)
 
 ### Source Code
@@ -74,7 +74,7 @@ The Profanity project includes Husky for running Git Hooks. Running `git commit`
 Deployments to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continuous Deployment workflow.
 
 #### 1. Create New Version
-1. Checkout `master`.
+1. Checkout `main`.
 2. Increment the version in package.json, using semantic versioning (e.g., `1.1.0`).
 3. Perform benchmarking:
    1. Run the script: `npm run benchmark`.
@@ -95,7 +95,7 @@ Deployments to Prod consist of building and publishing the Profanity lib to NPM,
 1. Navigate to [Profanity's releases](https://github.com/2Toad/Profanity/releases).
 2. Click "Draft a new release":
    - **Choose a tag**: enter version (e.g., `v1.1.0`) and click "Create new tag"
-   - **Target**: `master`
+   - **Target**: `main`
    - **Previous tag**: `auto`
    - **Release title**: (e.g., `1.1.0`)
    - **Description**: click the "Generate release notes"
