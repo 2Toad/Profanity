@@ -5,13 +5,10 @@ import { profaneWords } from "./data";
 
 export class Profanity {
   options: ProfanityOptions;
-
   whitelist: List;
 
   private blacklist: List;
-
   private removed: List;
-
   private regexes: Map<string, RegExp>;
 
   constructor(options?: ProfanityOptions | Partial<ProfanityOptions>) {
@@ -23,6 +20,13 @@ export class Profanity {
     this.regexes = new Map<string, RegExp>();
   }
 
+  /**
+   * Checks if the given text contains any profanity.
+   * @param text - The text to check for profanity.
+   * @param languages - Optional array of language codes to use for profanity detection.
+   *                    If not provided, uses the languages specified in the options.
+   * @returns True if profanity is found, false otherwise.
+   */
   exists(text: string, languages?: string[]): boolean {
     if (typeof text !== "string") {
       return false;
@@ -34,49 +38,26 @@ export class Profanity {
     const lowercaseText = text.toLowerCase();
 
     let match: RegExpExecArray | null;
-    do {
-      match = regex.exec(lowercaseText);
-      if (match !== null) {
-        const matchStart = match.index;
-        const matchEnd = matchStart + match[0].length;
+    while ((match = regex.exec(lowercaseText)) !== null) {
+      const matchStart = match.index;
+      const matchEnd = matchStart + match[0].length;
 
-        // Check if the matched word is part of a whitelisted word
-        let isWhitelisted = false;
-        this.whitelist.words.forEach((whitelistedWord) => {
-          const whitelistedIndex = lowercaseText.indexOf(whitelistedWord, Math.max(0, matchStart - whitelistedWord.length + 1));
-          if (whitelistedIndex !== -1) {
-            const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
-
-            if (this.options.wholeWord) {
-              // For whole word matching, ensure the whitelisted word exactly matches the profane word
-              // and is not part of a hyphenated or underscore-separated word
-              if (
-                matchStart === whitelistedIndex &&
-                matchEnd === whitelistedEnd &&
-                (matchStart === 0 || !/[\w-_]/.test(lowercaseText[matchStart - 1])) &&
-                // eslint-disable-next-line security/detect-object-injection
-                (matchEnd === lowercaseText.length || !/[\w-_]/.test(lowercaseText[matchEnd]))
-              ) {
-                isWhitelisted = true;
-              }
-            } else {
-              // For partial matching, check if the profane word is contained within the whitelisted word
-              if ((matchStart >= whitelistedIndex && matchStart < whitelistedEnd) || (matchEnd > whitelistedIndex && matchEnd <= whitelistedEnd)) {
-                isWhitelisted = true;
-              }
-            }
-          }
-        });
-
-        if (!isWhitelisted) {
-          return true;
-        }
+      if (!this.isWhitelisted(matchStart, matchEnd, lowercaseText)) {
+        return true;
       }
-    } while (match !== null);
+    }
 
     return false;
   }
 
+  /**
+   * Censors profanity in the given text.
+   * @param text - The text to censor.
+   * @param censorType - The type of censoring to apply. Defaults to CensorType.Word.
+   * @param languages - Optional array of language codes to use for profanity detection.
+   *                    If not provided, uses the languages specified in the options.
+   * @returns The censored text.
+   */
   censor(text: string, censorType: CensorType = CensorType.Word, languages?: string[]): string {
     if (typeof text !== "string") {
       return text;
@@ -87,45 +68,37 @@ export class Profanity {
 
     const lowercaseText = text.toLowerCase();
 
-    switch (censorType) {
-      case CensorType.Word:
-        return text.replace(regex, (match) => {
-          const underscore = match.includes("_") ? "_" : "";
-          return this.options.grawlix + underscore;
-        });
-      case CensorType.FirstChar: {
-        return this.replaceProfanity(text, lowercaseText, (word) => this.options.grawlixChar + word.slice(1), regex);
-      }
-      case CensorType.FirstVowel:
-      case CensorType.AllVowels: {
-        const vowelRegex = new RegExp("[aeiou]", censorType === CensorType.FirstVowel ? "i" : "ig");
-        return this.replaceProfanity(text, lowercaseText, (word) => word.replace(vowelRegex, this.options.grawlixChar), regex);
-      }
-      default:
-        throw new Error(`Invalid replacement type: "${censorType}"`);
-    }
+    return this.replaceProfanity(
+      text,
+      lowercaseText,
+      (word, start, end) => {
+        if (this.isWhitelisted(start, end, lowercaseText)) {
+          return word;
+        }
+        switch (censorType) {
+          case CensorType.Word: {
+            const underscore = word.includes("_") ? "_" : "";
+            return this.options.grawlix + underscore;
+          }
+          case CensorType.FirstChar:
+            return this.options.grawlixChar + word.slice(1);
+          case CensorType.FirstVowel:
+          case CensorType.AllVowels: {
+            const vowelRegex = new RegExp("[aeiou]", censorType === CensorType.FirstVowel ? "i" : "ig");
+            return word.replace(vowelRegex, this.options.grawlixChar);
+          }
+          default:
+            throw new Error(`Invalid replacement type: "${censorType}"`);
+        }
+      },
+      regex,
+    );
   }
 
-  private replaceProfanity(text: string, lowercaseText: string, replacer: (word: string) => string, regex: RegExp): string {
-    let result = text;
-    let offset = 0;
-
-    let match: RegExpExecArray | null;
-    do {
-      match = regex.exec(lowercaseText);
-      if (match !== null) {
-        const matchStart = match.index;
-        const matchEnd = matchStart + match[0].length;
-        const originalWord = text.slice(matchStart + offset, matchEnd + offset);
-        const censoredWord = replacer(originalWord);
-        result = result.slice(0, matchStart + offset) + censoredWord + result.slice(matchEnd + offset);
-        offset += censoredWord.length - originalWord.length;
-      }
-    } while (match !== null);
-
-    return result;
-  }
-
+  /**
+   * Adds words to the profanity blacklist.
+   * @param words - An array of words to add to the blacklist.
+   */
   addWords(words: string[]): void {
     const removedWords: string[] = [];
     const blacklistWords: string[] = [];
@@ -147,6 +120,10 @@ export class Profanity {
     }
   }
 
+  /**
+   * Removes words from the profanity blacklist.
+   * @param words - An array of words to remove from the blacklist.
+   */
   removeWords(words: string[]): void {
     const blacklistedWords: string[] = [];
     const removeWords: string[] = [];
@@ -166,6 +143,72 @@ export class Profanity {
     if (removeWords.length) {
       this.removed.addWords(removeWords);
     }
+  }
+
+  /**
+   * Checks if a given match is whitelisted.
+   * @param matchStart - The starting index of the match in the text.
+   * @param matchEnd - The ending index of the match in the text.
+   * @param text - The lowercase text being checked.
+   * @returns True if the match is whitelisted, false otherwise.
+   */
+  private isWhitelisted(matchStart: number, matchEnd: number, text: string): boolean {
+    for (const whitelistedWord of this.whitelist.words) {
+      const whitelistedIndex = text.indexOf(whitelistedWord, Math.max(0, matchStart - whitelistedWord.length + 1));
+      if (whitelistedIndex !== -1) {
+        const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
+
+        if (this.options.wholeWord) {
+          if (
+            matchStart === whitelistedIndex &&
+            matchEnd === whitelistedEnd &&
+            (matchStart === 0 || !/[\w-_]/.test(text[matchStart - 1])) &&
+            (matchEnd === text.length || !/[\w-_]/.test(text[matchEnd]))
+          ) {
+            return true;
+          }
+        } else {
+          if (
+            (matchStart >= whitelistedIndex && matchStart < whitelistedEnd) ||
+            (matchEnd > whitelistedIndex && matchEnd <= whitelistedEnd) ||
+            (whitelistedIndex >= matchStart && whitelistedEnd <= matchEnd)
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Replaces profanity in the text using the provided replacer function.
+   * @param text - The original text.
+   * @param lowercaseText - The lowercase version of the text.
+   * @param replacer - A function that determines how to replace profane words.
+   * @param regex - The regular expression used to find profane words.
+   * @returns The text with profanity replaced.
+   */
+  private replaceProfanity(
+    text: string,
+    lowercaseText: string,
+    replacer: (word: string, start: number, end: number) => string,
+    regex: RegExp,
+  ): string {
+    let result = text;
+    let offset = 0;
+
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(lowercaseText)) !== null) {
+      const matchStart = match.index;
+      const matchEnd = matchStart + match[0].length;
+      const originalWord = text.slice(matchStart + offset, matchEnd + offset);
+      const censoredWord = replacer(originalWord, matchStart, matchEnd);
+      result = result.slice(0, matchStart + offset) + censoredWord + result.slice(matchEnd + offset);
+      offset += censoredWord.length - originalWord.length;
+    }
+
+    return result;
   }
 
   /**
