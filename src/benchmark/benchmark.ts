@@ -110,7 +110,7 @@ suite
   .on("cycle", (event: Event) => {
     console.log(String(event.target));
   })
-  .on("complete", () => {
-    console.log(`Fastest: ${suite.filter("fastest").map("name")}`);
+  .on("complete", function () {
+    console.log(`Fastest: ${this.filter("fastest").map("name")[0]}`);
   })
   .run({ async: true });
