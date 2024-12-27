@@ -58,17 +58,17 @@ By default, this is set to `['en']` (English). You can change the default to any
 
 ```JavaScript
 const profanity = new Profanity({
-    languages: ["en", "de"],
+    languages: ['en', 'de'],
 });
 ```
 
 You can override this option by specifying the languages in `exists` or `censor`:
 
 ```JavaScript
-profanity.exists('Je suis un connard', ["fr"]);
+profanity.exists('Je suis un connard', ['fr']);
 // true
 
-profanity.censor('I like big butts and je suis un connard', CensorType.Word, ["en", "de", "fr"]);
+profanity.censor('I like big butts and je suis un connard', CensorType.Word, ['en', 'de', 'fr']);
 // I like big @#$%&! and je suis un @#$%&!
 ```
 

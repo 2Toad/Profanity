@@ -22,7 +22,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "prepublishOnly": "npm run lint && npm test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "translate": "ts-node src/scripts/translate.ts"
   },
   "repository": {
     "type": "git",
@@ -60,6 +61,7 @@
     "@types/node": "^22.5.2",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
     "@typescript-eslint/parser": "^8.4.0",
+    "axios": "^1.7.9",
     "benchmark": "^2.1.4",
     "chai": "^4.5.0",
     "eslint": "^9.9.1",

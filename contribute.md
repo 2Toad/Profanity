@@ -69,6 +69,40 @@ The Profanity project includes Husky for running Git Hooks. Running `git commit`
 
 - `chai`: we must use v4.x because v5.x is pure ESM, and we require CommonJS modules
 
+### Translations
+
+We utilize a self-hosted instance of the Open Source [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) lib to translate the core English list of profane words.
+
+#### Steps to Run Translations
+
+1. Open a terminal.
+2. Start Docker: `docker-compose up`.
+3. Run the translation script: `npm run translate`.
+
+#### Available Languages
+
+By default, the LibreTranslate service is configured to include all available target languages from [argos-translate](https://github.com/argosopentech/argos-translate). This configuration affects:
+
+- **Startup Time**: Initial service startup. Depending on your system, this can take ~5 minutes.
+- **Translation Time**: Translating across all languages increases processing time.
+- **Library Size**: The final size of the Profanity library.
+
+To optimize performance, we limit the target languages by configuring the `LT_LOAD_ONLY` environment variable:
+
+##### Configure Target Languages
+1. Open the `./docker-compose.yml` file.
+2. Add a comma-separated list of the [supported language codes](https://github.com/argosopentech/argos-translate/blob/master/argostranslate/languages.csv) you wish to include. Ensure English (`en`) is included, as it serves as the source language.
+
+**Example Configuration:**
+```yaml
+environment:
+  LT_LOAD_ONLY: "en,es,fr,de"
+```
+
+> **Note:** 
+> - To add a new language, remove existing language codes from `LT_LOAD_ONLY`
+> - To update existing languages after changes to the core English list, include their language codes in `LT_LOAD_ONLY`
+
 ### Deployment
 
 Deployments to Prod consist of building and publishing the Profanity lib to NPM, and are automated through our Continuous Deployment workflow.

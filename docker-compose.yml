@@ -1,0 +1,24 @@
+version: "3"
+services:
+  libretranslate:
+    image: libretranslate/libretranslate:latest-cuda
+    ports:
+      - "5000:5000"
+    environment:
+      - LT_LOAD_ONLY=en,ar,zh,fr,de,hi,ja,ko,pt,ru,es
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_LAUNCH_BLOCKING=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+        limits:
+          memory: 5G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/languages"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
