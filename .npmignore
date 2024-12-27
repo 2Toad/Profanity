@@ -11,4 +11,5 @@ tests/
 .nvmrc
 .prettierignore
 .prettierrc.json
+docker-compose.yml
 tsconfig.json
