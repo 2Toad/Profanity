@@ -17,13 +17,13 @@
     "pretest": "npm run build",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "test:watch": "npm run test -- --watch",
-    "benchmark": "docker-compose -f ./src/benchmark/docker-compose.yml up --build",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "prepublishOnly": "npm run lint && npm test",
     "prepare": "husky",
-    "translate": "ts-node src/scripts/translate.ts"
+    "translate": "docker-compose -f ./src/tools/translate/docker-compose.yml up -d && ts-node ./src/tools/translate/translate.ts && docker-compose -f ./src/tools/translate/docker-compose.yml down",
+    "benchmark": "docker-compose -f ./src/tools/benchmark/docker-compose.yml up --build"
   },
   "repository": {
     "type": "git",

@@ -12,5 +12,6 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["dom", "es2019"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/tools/**/*"]
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as fs from "fs";
 import * as path from "path";
-import { profaneWords } from "../data/profane-words";
+import { profaneWords } from "../../data/profane-words";
 
 interface TranslationResponse {
   translatedText: string;
@@ -195,7 +195,7 @@ async function main() {
   newContent += "]);\n";
 
   // Write back to file
-  const filePath = path.join(__dirname, "../data/profane-words.ts");
+  const filePath = path.join(__dirname, "../../data/profane-words.ts");
   fs.writeFileSync(filePath, newContent);
   console.log("\nTranslation complete! Updated profane-words.ts");
 }

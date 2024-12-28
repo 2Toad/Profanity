@@ -76,8 +76,7 @@ We utilize a self-hosted instance of the Open Source [LibreTranslate](https://gi
 #### Steps to Run Translations
 
 1. Open a terminal.
-2. Start Docker: `docker-compose up`.
-3. Run the translation script: `npm run translate`.
+2. Generate translations: `npm run translate`.
 
 #### Available Languages
 
@@ -90,7 +89,7 @@ By default, the LibreTranslate service is configured to include all available ta
 To optimize performance, we limit the target languages by configuring the `LT_LOAD_ONLY` environment variable:
 
 ##### Configure Target Languages
-1. Open the `./docker-compose.yml` file.
+1. Open the [docker-compose.yml](./src/tools/translate/docker-compose.yml) file.
 2. Add a comma-separated list of the [supported language codes](https://github.com/argosopentech/argos-translate/blob/master/argostranslate/languages.csv) you wish to include. Ensure English (`en`) is included, as it serves as the source language.
 
 **Example Configuration:**
@@ -112,9 +111,11 @@ Deployments to Prod consist of building and publishing the Profanity lib to NPM,
 2. Increment the version in package.json, using semantic versioning (e.g., `1.1.0`).
 3. Perform benchmarking:
    1. Run the script: `npm run benchmark`.
-   2. Record the results in [benchmark/results.md](./src/benchmark/results.md), for the new version.
+   2. Record the results in [benchmark/results.md](./src/tools/benchmark/results.md), for the new version.
 4. Rebuild package-lock, to pick up the new version number: `npm i --package-lock-only`.
-5. Push changes:
+5. Create local NPM package: `npm pack`
+   - Examine generated tar file to ensure it looks healthy
+6. Push changes:
    ```
    git add .
    git commit -m "Bump version to 1.1.0"

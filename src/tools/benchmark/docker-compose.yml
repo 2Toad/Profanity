@@ -1,8 +1,8 @@
 services:
   benchmark:
     build:
-      context: ../..
-      dockerfile: ./src/benchmark/Dockerfile
+      context: ../../../
+      dockerfile: ./src/tools/benchmark/Dockerfile
     deploy:
       resources:
         limits:

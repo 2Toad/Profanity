@@ -15,7 +15,7 @@ import * as path from "path";
 import { Suite, Event } from "benchmark";
 
 import { VersionData, TestData } from "./benchmark-interfaces";
-import { Profanity, CensorType } from "..";
+import { Profanity, CensorType } from "../../";
 
 const TEST_VERSION: number = 1;
 

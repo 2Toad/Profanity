@@ -164,7 +164,7 @@ profanity.whitelist.removeWords(['arsenic', 'buttress']);
 
 ## Benchmarking ⏱️
 
-To see how Profanity performs, check out our [benchmark results](./src/benchmark/results.md).
+To see how Profanity performs, check out our [benchmark results](./src/tools/benchmark/results.md).
 
 ## Contributing 🤝
 

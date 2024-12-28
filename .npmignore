@@ -4,12 +4,10 @@ src/
 tests/
 .editorconfig
 .eslintcache
-.eslintignore
-.eslintrc.json
 .gitattributes
 .gitignore
 .nvmrc
 .prettierignore
 .prettierrc.json
-docker-compose.yml
+eslint.config.mjs
 tsconfig.json
