@@ -10,6 +10,7 @@ There are many more [languages](https://github.com/argosopentech/argos-translate
 | French               | `fr`       |
 | German               | `de`       |
 | Hindi                | `hi`       |
+| Italian              | `it`       |
 | Japanese             | `ja`       |
 | Korean               | `ko`       |
 | Portuguese           | `pt`       |
