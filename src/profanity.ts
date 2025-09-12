@@ -159,11 +159,12 @@ export class Profanity {
         const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
 
         if (this.options.wholeWord) {
+          const isWordChar = (ch: string | undefined) => (ch ? /[\p{L}\p{N}\p{M}_-]/u.test(ch) : false);
           if (
             matchStart === whitelistedIndex &&
             matchEnd === whitelistedEnd &&
-            (matchStart === 0 || !/[\w-_]/.test(text[matchStart - 1])) &&
-            (matchEnd === text.length || !/[\w-_]/.test(text[matchEnd]))
+            (matchStart === 0 || !isWordChar(text[matchStart - 1])) &&
+            (matchEnd === text.length || !isWordChar(text[matchEnd]))
           ) {
             return true;
           }
@@ -262,9 +263,16 @@ export class Profanity {
   private buildRegex(words: string[]): RegExp {
     const allProfaneWords = [...words, ...this.blacklist.words];
     const escapedProfaneWords = allProfaneWords.map(escapeRegExp);
-    const profanityPattern = `${this.options.wholeWord ? "(?:\\b|_)" : ""}(${escapedProfaneWords.join("|")})${this.options.wholeWord ? "(?:\\b|_)" : ""}`;
+    // Use Unicode-aware word boundaries with optional trailing underscore consumption
+    // Start boundary: beginning or previous char is not a unicode letter/number/underscore
+    // End boundary: either consume a trailing underscore OR assert next char is not unicode letter/number/underscore
+    // Allow underscore before the word as a boundary (to mirror previous (?:\b|_))
+    const boundaryStart = "(?:(?<![\\p{L}\\p{N}\\p{M}])|(?<=_))";
+    const boundaryEnd = "(?:_|(?![\\p{L}\\p{N}\\p{M}_]))";
+    const core = `(${escapedProfaneWords.join("|")})`;
+    const profanityPattern = this.options.wholeWord ? `${boundaryStart}${core}${boundaryEnd}` : core;
     // eslint-disable-next-line security/detect-non-literal-regexp
-    return new RegExp(profanityPattern, "gi");
+    return new RegExp(profanityPattern, "giu");
   }
 
   /**
