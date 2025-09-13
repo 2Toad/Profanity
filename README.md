@@ -88,23 +88,6 @@ profanity.exists('Arsenic is poisonous but not profane');
 // true (matched on arse)
 ```
 
-### unicodeWordBoundaries
-
-Controls whether word boundaries are Unicode-aware. By default this is set to `false` due to the performance impact. 
-
-- When `false` (default), whole-word matching uses ASCII-style boundaries (similar to `\b`) plus underscore `_` as a separator. This is fastest and ideal for ASCII inputs.
-- When `true`, whole-word matching uses Unicode-aware boundaries so words with diacritics (e.g., `vehículo`, `horário`) and compound separators are handled correctly.
-
-```JavaScript
-const profanity = new Profanity({ 
-  unicodeWordBoundaries: true,
-  wholeWord: true, // must be true for boundaries to work
-});
-
-profanity.exists('vehículo horario');
-// false (does not match on "culo" inside "vehículo")
-```
-
 #### Compound Words  
 Profanity detection works on parts of compound words, rather than treating hyphenated or underscore-separated words as indivisible.
 
@@ -120,6 +103,20 @@ Setting `wholeWord` to `false`, results in partial word matches on each portion 
 ```JavaScript
 profanity.exists("Don't be an arsenic-monster");
 // true (matched on arse)
+```
+
+#### unicodeWordBoundaries
+
+When `wholeWord` is `true`, this controls whether word boundaries are Unicode-aware. By default this is set to `false` due to the performance impact. 
+
+- When `false` (default), whole-word matching uses ASCII-style boundaries (similar to `\b`) plus underscore `_` as a separator. This is fastest and ideal for ASCII inputs.
+- When `true`, whole-word matching uses Unicode-aware boundaries so words with diacritics (e.g., `vehículo`, `horário`) and compound separators are handled correctly.
+
+```JavaScript
+const profanity = new Profanity({ unicodeWordBoundaries: true });
+
+profanity.exists('vehículo horario');
+// false (does not match on "culo" inside "vehículo")
 ```
 
 ### grawlix
