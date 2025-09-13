@@ -13,6 +13,10 @@
 import * as fs from "fs";
 import * as path from "path";
 import { Suite, Event } from "benchmark";
+type Bench = {
+  name: string;
+  stats?: { sample?: unknown[] };
+};
 
 import { VersionData, TestData } from "./benchmark-interfaces";
 import { Profanity, CensorType } from "../../";
@@ -63,54 +67,120 @@ const { smallCleanText, smallProfaneText, largeCleanText, largeProfaneText } = t
 // Create Profanity instances for different scenarios
 const defaultProfanity = new Profanity();
 const partialMatchProfanity = new Profanity({ wholeWord: false });
+const unicodeOnProfanity = new Profanity({ unicodeWordBoundaries: true });
 
 // Pre-cache regexes
 defaultProfanity.exists("foo");
 partialMatchProfanity.exists("bar");
+unicodeOnProfanity.exists("baz");
+
+// Run paired benchmarks sequentially so the unicode-on variant uses the exact
+// same sample count as the unicode-off variant
+type BenchFn = () => void;
+type Pair = { nameA: string; fnA: BenchFn; nameB: string; fnB: BenchFn };
+
+const pairs: Pair[] = [
+  {
+    nameA: "exists() - small profane text",
+    fnA: () => defaultProfanity.exists(smallProfaneText),
+    nameB: "exists() - small profane text (unicode on)",
+    fnB: () => unicodeOnProfanity.exists(smallProfaneText),
+  },
+  {
+    nameA: "exists() - large clean text",
+    fnA: () => defaultProfanity.exists(largeCleanText),
+    nameB: "exists() - large clean text (unicode on)",
+    fnB: () => unicodeOnProfanity.exists(largeCleanText),
+  },
+  {
+    nameA: "censor() - Word, small profane text",
+    fnA: () => defaultProfanity.censor(smallProfaneText, CensorType.Word),
+    nameB: "censor() - Word, small profane text (unicode on)",
+    fnB: () => unicodeOnProfanity.censor(smallProfaneText, CensorType.Word),
+  },
+  {
+    nameA: "censor() - Word, large profane text",
+    fnA: () => defaultProfanity.censor(largeProfaneText, CensorType.Word),
+    nameB: "censor() - Word, large profane text (unicode on)",
+    fnB: () => unicodeOnProfanity.censor(largeProfaneText, CensorType.Word),
+  },
+];
+
+const runPairAt = (index: number, next: () => void) => {
+  if (index >= pairs.length) return next();
+  const { nameA, fnA, nameB, fnB } = pairs[index];
+
+  const suiteA: Suite = new Suite();
+  let sampleCountA = 0;
+  suiteA
+    .add(nameA, fnA)
+    .on("cycle", (event: Event) => {
+      console.log(String(event.target));
+      const bench = event.target as unknown as Bench;
+      sampleCountA = Array.isArray(bench.stats?.sample) ? bench.stats!.sample!.length : 0;
+    })
+    .on("complete", function () {
+      const samples: number = sampleCountA;
+
+      const suiteB: Suite = new Suite();
+      suiteB
+        .add(nameB, fnB, { minSamples: samples, maxTime: 0 })
+        .on("cycle", (event: Event) => {
+          console.log(String(event.target));
+        })
+        .on("complete", function () {
+          runPairAt(index + 1, next);
+        })
+        .run({ async: true });
+    })
+    .run({ async: true });
+};
 
 // Benchmark exists() function
-suite
-  .add("exists() - small clean text", () => {
-    defaultProfanity.exists(smallCleanText);
-  })
-  .add("exists() - small profane text", () => {
-    defaultProfanity.exists(smallProfaneText);
-  })
-  .add("exists() - large clean text", () => {
-    defaultProfanity.exists(largeCleanText);
-  })
-  .add("exists() - large profane text", () => {
-    defaultProfanity.exists(largeProfaneText);
-  })
-  .add("exists() - partial match, small profane text", () => {
-    partialMatchProfanity.exists(smallProfaneText);
-  })
+// Build the main suite for the remaining benchmarks (unpaired)
+const startMainSuite = () =>
+  suite
+    .add("exists() - small clean text", () => {
+      defaultProfanity.exists(smallCleanText);
+    })
+    .add("exists() - large clean text", () => {
+      defaultProfanity.exists(largeCleanText);
+    })
+    .add("exists() - large profane text", () => {
+      defaultProfanity.exists(largeProfaneText);
+    })
+    .add("exists() - partial match, small profane text", () => {
+      partialMatchProfanity.exists(smallProfaneText);
+    })
 
-  // Benchmark censor() function
-  .add("censor() - Word, small profane text", () => {
-    defaultProfanity.censor(smallProfaneText, CensorType.Word);
-  })
-  .add("censor() - FirstChar, small profane text", () => {
-    defaultProfanity.censor(smallProfaneText, CensorType.FirstChar);
-  })
-  .add("censor() - FirstVowel, small profane text", () => {
-    defaultProfanity.censor(smallProfaneText, CensorType.FirstVowel);
-  })
-  .add("censor() - AllVowels, small profane text", () => {
-    defaultProfanity.censor(smallProfaneText, CensorType.AllVowels);
-  })
-  .add("censor() - Word, large profane text", () => {
-    defaultProfanity.censor(largeProfaneText, CensorType.Word);
-  })
-  .add("censor() - partial match, Word, small profane text", () => {
-    partialMatchProfanity.censor(smallProfaneText, CensorType.Word);
-  })
+    // Benchmark censor() function
+    .add("censor() - Word, small profane text", () => {
+      defaultProfanity.censor(smallProfaneText, CensorType.Word);
+    })
+    .add("censor() - FirstChar, small profane text", () => {
+      defaultProfanity.censor(smallProfaneText, CensorType.FirstChar);
+    })
+    .add("censor() - FirstVowel, small profane text", () => {
+      defaultProfanity.censor(smallProfaneText, CensorType.FirstVowel);
+    })
+    .add("censor() - AllVowels, small profane text", () => {
+      defaultProfanity.censor(smallProfaneText, CensorType.AllVowels);
+    })
+    .add("censor() - Word, large profane text", () => {
+      defaultProfanity.censor(largeProfaneText, CensorType.Word);
+    })
+    .add("censor() - partial match, Word, small profane text", () => {
+      partialMatchProfanity.censor(smallProfaneText, CensorType.Word);
+    })
 
-  // Run the benchmark
-  .on("cycle", (event: Event) => {
-    console.log(String(event.target));
-  })
-  .on("complete", function () {
-    console.log(`Fastest: ${this.filter("fastest").map("name")[0]}`);
-  })
-  .run({ async: true });
+    // Run the benchmark
+    .on("cycle", (event: Event) => {
+      console.log(String(event.target));
+    })
+    .on("complete", function () {
+      console.log(`Fastest: ${this.filter("fastest").map("name")[0]}`);
+    })
+    .run({ async: true });
+
+// Run paired benchmarks first, then start the main suite
+runPairAt(0, startMainSuite);

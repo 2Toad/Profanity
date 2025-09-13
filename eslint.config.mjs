@@ -12,6 +12,15 @@ export default [
   ...ts.configs.recommended,
   security.configs.recommended,
   {
+    // Disable noisy security warnings that are intentional in this codebase
+    rules: {
+      // Dynamic regex construction is required for the profanity alternation
+      "security/detect-non-literal-regexp": "off",
+      // Indexed access in benchmarks/translate is safe in our context
+      "security/detect-object-injection": "off",
+    },
+  },
+  {
     // These file-matching rules will be processed after the above configs
     files: ["**/*.{js,ts}"],
   },
