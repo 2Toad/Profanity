@@ -47,3 +47,36 @@ describe("Unicode word boundaries (wholeWord=true)", () => {
     expect(profanity.exists("véhicule")).to.be.false;
   });
 });
+
+describe("Unicode option interaction with wholeWord=false", () => {
+  it("should detect substrings regardless of unicodeWordBoundaries (es)", () => {
+    const input = "vehículo";
+    const pAscii = new Profanity({ languages: ["es"], wholeWord: false, grawlix: "*****", unicodeWordBoundaries: false });
+    const pUnicode = new Profanity({ languages: ["es"], wholeWord: false, grawlix: "*****", unicodeWordBoundaries: true });
+    expect(pAscii.exists(input)).to.be.true;
+    expect(pAscii.censor(input)).to.equal("vehí*****");
+    expect(pUnicode.exists(input)).to.be.true;
+    expect(pUnicode.censor(input)).to.equal("vehí*****");
+  });
+
+  it("should detect substrings regardless of unicodeWordBoundaries (fr)", () => {
+    const input = "véhicule";
+    const pAscii = new Profanity({ languages: ["fr"], wholeWord: false, unicodeWordBoundaries: false });
+    const pUnicode = new Profanity({ languages: ["fr"], wholeWord: false, unicodeWordBoundaries: true });
+    expect(pAscii.exists(input)).to.be.true; // matches 'cul'
+    expect(pUnicode.exists(input)).to.be.true; // matches 'cul'
+  });
+});
+
+describe("Unicode off with wholeWord=true (legacy ASCII boundaries)", () => {
+  it("should match 'culo' inside 'vehículo' when unicodeWordBoundaries=false", () => {
+    const profanity = new Profanity({ languages: ["es"], wholeWord: true, grawlix: "*****", unicodeWordBoundaries: false });
+    expect(profanity.exists("vehículo")).to.be.true;
+    expect(profanity.censor("vehículo")).to.equal("vehí*****");
+  });
+
+  it("should not match 'cul' inside 'véhicule' even when unicodeWordBoundaries=false", () => {
+    const profanity = new Profanity({ languages: ["fr"], wholeWord: true, unicodeWordBoundaries: false });
+    expect(profanity.exists("véhicule")).to.be.false;
+  });
+});
