@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2019",
+    "types": ["node", "mocha", "chai"],
     "typeRoots": ["node_modules/@types"],
     "lib": ["dom", "es2019"]
   },

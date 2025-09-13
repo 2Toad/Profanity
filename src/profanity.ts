@@ -159,11 +159,15 @@ export class Profanity {
         const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
 
         if (this.options.wholeWord) {
+          const isWordChar = (ch: string | undefined) => {
+            if (!ch) return false;
+            return this.options.unicodeWordBoundaries ? /[\p{L}\p{N}\p{M}_-]/u.test(ch) : /[\w-_]/.test(ch);
+          };
           if (
             matchStart === whitelistedIndex &&
             matchEnd === whitelistedEnd &&
-            (matchStart === 0 || !/[\w-_]/.test(text[matchStart - 1])) &&
-            (matchEnd === text.length || !/[\w-_]/.test(text[matchEnd]))
+            (matchStart === 0 || !isWordChar(text.charAt(matchStart - 1))) &&
+            (matchEnd === text.length || !isWordChar(text.charAt(matchEnd)))
           ) {
             return true;
           }
@@ -262,9 +266,24 @@ export class Profanity {
   private buildRegex(words: string[]): RegExp {
     const allProfaneWords = [...words, ...this.blacklist.words];
     const escapedProfaneWords = allProfaneWords.map(escapeRegExp);
-    const profanityPattern = `${this.options.wholeWord ? "(?:\\b|_)" : ""}(${escapedProfaneWords.join("|")})${this.options.wholeWord ? "(?:\\b|_)" : ""}`;
-    // eslint-disable-next-line security/detect-non-literal-regexp
-    return new RegExp(profanityPattern, "gi");
+    // Core alternation of profane words
+    const core = `(${escapedProfaneWords.join("|")})`;
+    if (this.options.wholeWord) {
+      if (this.options.unicodeWordBoundaries) {
+        // Unicode-aware word boundaries with optional trailing underscore consumption
+        // Start boundary: beginning or previous char is not a unicode letter/number/combining-mark
+        // OR immediately preceded by underscore (to mirror previous (?:\b|_))
+        // End boundary: either consume a trailing underscore OR assert next char is not
+        // a unicode letter/number/combining-mark/underscore
+        const boundaryStart = "(?:(?<![\\p{L}\\p{N}\\p{M}])|(?<=_))";
+        const boundaryEnd = "(?:_|(?![\\p{L}\\p{N}\\p{M}_]))";
+        return new RegExp(`${boundaryStart}${core}${boundaryEnd}`, "giu");
+      }
+
+      // ASCII-style word boundaries behavior (\b) with underscore treated as a separator
+      return new RegExp(`(?:\\b|_)${core}(?:\\b|_)`, "gi");
+    }
+    return new RegExp(core, this.options.unicodeWordBoundaries ? "giu" : "gi");
   }
 
   /**

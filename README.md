@@ -135,6 +135,21 @@ profanity.censor('I like big butts and I cannot lie', CensorType.AllVowels);
 // I like big b$tts and I cannot lie
 ```
 
+### unicodeWordBoundaries
+
+Controls whether word boundaries are Unicode-aware. By default this is set to `false` due to the performance impact.
+
+- When `false` (default), whole-word matching uses ASCII-style boundaries (similar to `\b`) plus underscore `_` as a separator. This is fastest and ideal for ASCII inputs.
+- When `true`, whole-word matching uses Unicode-aware boundaries so words with diacritics (e.g., `vehículo`, `horário`) and compound separators are handled correctly.
+
+```JavaScript
+// Enable Unicode-aware boundaries when processing non-ASCII input
+const profanity = new Profanity({ unicodeWordBoundaries: true });
+
+profanity.exists('vehículo horario');
+// false (does not match on "culo" inside "vehículo")
+```
+
 ## Customize the word list
 
 Add words:
