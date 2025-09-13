@@ -39,4 +39,14 @@ describe("ProfanityOptions", () => {
     expect(options.grawlix).to.equal("@#$%&!");
     expect(options.grawlixChar).to.equal("*");
   });
+
+  it("should default unicodeWordBoundaries to false", () => {
+    const options = new ProfanityOptions();
+    expect(options.unicodeWordBoundaries).to.be.false;
+  });
+
+  it("should allow setting unicodeWordBoundaries via constructor", () => {
+    const options = new ProfanityOptions({ unicodeWordBoundaries: true });
+    expect(options.unicodeWordBoundaries).to.be.true;
+  });
 });
