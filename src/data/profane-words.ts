@@ -1153,6 +1153,7 @@ export const profaneWords: Map<string, string[]> = new Map([
       "wank",
       "wahnsinn",
       "hure",
+      "hurensohn",
       "willies",
       "willy",
     ],
