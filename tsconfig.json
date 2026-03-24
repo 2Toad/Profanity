@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2023",
-    "types": ["node", "mocha", "chai"],
+    "types": ["node"],
     "typeRoots": ["node_modules/@types"],
     "lib": ["dom", "es2023"]
   },
