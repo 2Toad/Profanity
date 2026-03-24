@@ -28,4 +28,4 @@ jobs:
         run: npm ci
 
       - name: Publish Package
-        run: npm publish --provenance --access public
+        run: npm publish
