@@ -6,6 +6,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   continuous-deployment:
     name: Continuous Deployment
@@ -26,4 +30,4 @@ jobs:
         run: npm ci
 
       - name: Publish Package
-        run: npm publish
+        run: npm publish --access public
