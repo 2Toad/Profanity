@@ -239,7 +239,7 @@ export class Profanity {
 
     const uniqueLanguages = [...new Set(languages.map((language) => language.trim().toLowerCase()))];
 
-    const regexKey = uniqueLanguages.sort().join(",");
+    const regexKey = uniqueLanguages.toSorted().join(",");
     if (this.regexes.has(regexKey)) {
       return this.regexes.get(regexKey)!;
     }

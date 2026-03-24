@@ -61,10 +61,6 @@ The Profanity project includes an .nvmrc file, so you can run `nvm use` to switc
    2. NVM will install the required Node version if it isn't installed
    3. NVM will set your current Node version to the one required
 
-#### Git Hooks
-
-The Profanity project includes Husky for running Git Hooks. Running `git commit` will trigger `lint-staged` which will lint all files currently staged in Git. If linting fails, the commit will be cancelled
-
 ### Translations
 
 We utilize a self-hosted instance of the Open Source [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) lib to translate the core English list of profane words.
