@@ -28,4 +28,4 @@ jobs:
         run: npm ci
 
       - name: Publish Package
-        run: NODE_AUTH_TOKEN="" npm publish --provenance --access public
+        run: NODE_AUTH_TOKEN="" npm publish
