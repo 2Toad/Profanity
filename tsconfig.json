@@ -1,17 +1,18 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2019",
-    "types": ["node", "mocha", "chai"],
+    "target": "es2023",
+    "types": ["node"],
     "typeRoots": ["node_modules/@types"],
-    "lib": ["dom", "es2019"]
+    "lib": ["dom", "es2023"]
   },
   "include": ["src/**/*"],
   "exclude": ["src/tools/**/*"]

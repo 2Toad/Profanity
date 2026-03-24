@@ -177,7 +177,7 @@ async function main() {
   const combinedTranslations = new Map<string, string[]>([...profaneWords, ...translations]);
   combinedTranslations.delete("en");
 
-  const sortedTranslations = Array.from(combinedTranslations.entries()).sort(([langA], [langB]) => langA.localeCompare(langB));
+  const sortedTranslations = Array.from(combinedTranslations.entries()).toSorted(([langA], [langB]) => langA.localeCompare(langB));
 
   // Generate new content
   let newContent = "// WARNING: this file contains profanity. The below list of profane words is necessary for this tool to function properly.\n";

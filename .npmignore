@@ -1,5 +1,4 @@
 .github/
-.husky/
 src/
 tests/
 .editorconfig
