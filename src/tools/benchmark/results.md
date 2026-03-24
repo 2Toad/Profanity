@@ -8,33 +8,33 @@
 
 ### Benchmarks
 
-
 #### v3.3.0
 
-- `censor()` on large text is ~5x faster.
-- `exists()` improved 5–10% across the board.
-- `censor()` regressed ~10% due to array-join overhead with few matches — negligible at >2M ops/sec.
+- `censor()` on large text is **4–5x faster**
+- Unicode paths are **2–3x faster** across both `exists()` and `censor()`.
+- `exists()` improved 3–28% on non-unicode paths.
+- Small-text `censor()` dips of 3–9% are within benchmark variance at >2M ops/sec.
 
 ```
 benchmark-1  | Using test data: v1
-benchmark-1  | exists() - small profane text x 4,915,990 ops/sec ±2.70% (95 runs sampled)
-benchmark-1  | exists() - small profane text (unicode on) x 1,779,776 ops/sec ±3.15% (95 runs sampled)
-benchmark-1  | exists() - large clean text x 76,738 ops/sec ±2.86% (94 runs sampled)
-benchmark-1  | exists() - large clean text (unicode on) x 14,985 ops/sec ±0.51% (94 runs sampled)
-benchmark-1  | censor() - Word, small profane text x 2,534,015 ops/sec ±2.01% (98 runs sampled)
-benchmark-1  | censor() - Word, small profane text (unicode on) x 1,151,956 ops/sec ±1.60% (98 runs sampled)
-benchmark-1  | censor() - Word, large profane text x 12,141 ops/sec ±0.61% (99 runs sampled)
-benchmark-1  | censor() - Word, large profane text (unicode on) x 8,749 ops/sec ±1.67% (99 runs sampled)
-benchmark-1  | exists() - small clean text x 5,254,667 ops/sec ±2.34% (97 runs sampled)
-benchmark-1  | exists() - large clean text x 81,157 ops/sec ±0.49% (98 runs sampled)
-benchmark-1  | exists() - large profane text x 1,298,867 ops/sec ±6.78% (99 runs sampled)
-benchmark-1  | exists() - partial match, small profane text x 4,405,440 ops/sec ±3.38% (92 runs sampled)
-benchmark-1  | censor() - Word, small profane text x 2,559,010 ops/sec ±0.92% (96 runs sampled)
-benchmark-1  | censor() - FirstChar, small profane text x 2,615,257 ops/sec ±0.17% (98 runs sampled)
-benchmark-1  | censor() - FirstVowel, small profane text x 2,314,978 ops/sec ±2.35% (99 runs sampled)
-benchmark-1  | censor() - AllVowels, small profane text x 2,197,737 ops/sec ±3.82% (90 runs sampled)
-benchmark-1  | censor() - Word, large profane text x 12,296 ops/sec ±0.27% (97 runs sampled)
-benchmark-1  | censor() - partial match, Word, small profane text x 2,292,568 ops/sec ±3.11% (99 runs sampled)
+benchmark-1  | exists() - small profane text x 5,132,199 ops/sec ±0.92% (96 runs sampled)
+benchmark-1  | exists() - small profane text (unicode on) x 3,953,432 ops/sec ±3.32% (96 runs sampled)
+benchmark-1  | exists() - large clean text x 72,252 ops/sec ±0.60% (91 runs sampled)
+benchmark-1  | exists() - large clean text (unicode on) x 40,422 ops/sec ±2.40% (91 runs sampled)
+benchmark-1  | censor() - Word, small profane text x 2,804,254 ops/sec ±3.87% (96 runs sampled)
+benchmark-1  | censor() - Word, small profane text (unicode on) x 2,306,547 ops/sec ±0.46% (96 runs sampled)
+benchmark-1  | censor() - Word, large profane text x 12,329 ops/sec ±2.25% (96 runs sampled)
+benchmark-1  | censor() - Word, large profane text (unicode on) x 11,275 ops/sec ±2.73% (96 runs sampled)
+benchmark-1  | exists() - small clean text x 5,378,891 ops/sec ±0.90% (94 runs sampled)
+benchmark-1  | exists() - large clean text x 75,333 ops/sec ±1.97% (93 runs sampled)
+benchmark-1  | exists() - large profane text x 1,667,047 ops/sec ±2.30% (99 runs sampled)
+benchmark-1  | exists() - partial match, small profane text x 4,593,626 ops/sec ±1.01% (95 runs sampled)
+benchmark-1  | censor() - Word, small profane text x 2,843,230 ops/sec ±0.60% (95 runs sampled)
+benchmark-1  | censor() - FirstChar, small profane text x 2,908,932 ops/sec ±0.65% (92 runs sampled)
+benchmark-1  | censor() - FirstVowel, small profane text x 2,421,681 ops/sec ±6.26% (98 runs sampled)
+benchmark-1  | censor() - AllVowels, small profane text x 2,409,677 ops/sec ±3.97% (97 runs sampled)
+benchmark-1  | censor() - Word, large profane text x 12,143 ops/sec ±0.72% (97 runs sampled)
+benchmark-1  | censor() - partial match, Word, small profane text x 2,459,104 ops/sec ±3.71% (96 runs sampled)
 benchmark-1  | Fastest: exists() - small clean text
 ```
 
