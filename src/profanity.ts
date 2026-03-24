@@ -3,6 +3,11 @@ import { List, CensorType } from "./models";
 import { escapeRegExp } from "./utils";
 import { profaneWords } from "./data";
 
+const FIRST_VOWEL_RE = /[aeiou]/i;
+const ALL_VOWELS_RE = /[aeiou]/gi;
+const UNICODE_WORD_CHAR_RE = /[\p{L}\p{N}\p{M}_-]/u;
+const ASCII_WORD_CHAR_RE = /[\w-_]/;
+
 export class Profanity {
   options: ProfanityOptions;
   whitelist: List;
@@ -84,7 +89,7 @@ export class Profanity {
             return this.options.grawlixChar + word.slice(1);
           case CensorType.FirstVowel:
           case CensorType.AllVowels: {
-            const vowelRegex = new RegExp("[aeiou]", censorType === CensorType.FirstVowel ? "i" : "ig");
+            const vowelRegex = censorType === CensorType.FirstVowel ? FIRST_VOWEL_RE : ALL_VOWELS_RE;
             return word.replace(vowelRegex, this.options.grawlixChar);
           }
           default:
@@ -153,32 +158,31 @@ export class Profanity {
    * @returns True if the match is whitelisted, false otherwise.
    */
   private isWhitelisted(matchStart: number, matchEnd: number, text: string): boolean {
+    const wholeWord = this.options.wholeWord;
+    const wordCharRe = wholeWord ? (this.options.unicodeWordBoundaries ? UNICODE_WORD_CHAR_RE : ASCII_WORD_CHAR_RE) : null;
+
     for (const whitelistedWord of this.whitelist.words) {
       const whitelistedIndex = text.indexOf(whitelistedWord, Math.max(0, matchStart - whitelistedWord.length + 1));
-      if (whitelistedIndex !== -1) {
-        const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
+      if (whitelistedIndex === -1) continue;
 
-        if (this.options.wholeWord) {
-          const isWordChar = (ch: string | undefined) => {
-            if (!ch) return false;
-            return this.options.unicodeWordBoundaries ? /[\p{L}\p{N}\p{M}_-]/u.test(ch) : /[\w-_]/.test(ch);
-          };
-          if (
-            matchStart === whitelistedIndex &&
-            matchEnd === whitelistedEnd &&
-            (matchStart === 0 || !isWordChar(text.charAt(matchStart - 1))) &&
-            (matchEnd === text.length || !isWordChar(text.charAt(matchEnd)))
-          ) {
-            return true;
-          }
-        } else {
-          if (
-            (matchStart >= whitelistedIndex && matchStart < whitelistedEnd) ||
-            (matchEnd > whitelistedIndex && matchEnd <= whitelistedEnd) ||
-            (whitelistedIndex >= matchStart && whitelistedEnd <= matchEnd)
-          ) {
-            return true;
-          }
+      const whitelistedEnd = whitelistedIndex + whitelistedWord.length;
+
+      if (wordCharRe) {
+        if (
+          matchStart === whitelistedIndex &&
+          matchEnd === whitelistedEnd &&
+          (matchStart === 0 || !wordCharRe.test(text.charAt(matchStart - 1))) &&
+          (matchEnd === text.length || !wordCharRe.test(text.charAt(matchEnd)))
+        ) {
+          return true;
+        }
+      } else {
+        if (
+          (matchStart >= whitelistedIndex && matchStart < whitelistedEnd) ||
+          (matchEnd > whitelistedIndex && matchEnd <= whitelistedEnd) ||
+          (whitelistedIndex >= matchStart && whitelistedEnd <= matchEnd)
+        ) {
+          return true;
         }
       }
     }
@@ -199,20 +203,22 @@ export class Profanity {
     replacer: (word: string, start: number, end: number) => string,
     regex: RegExp,
   ): string {
-    let result = text;
-    let offset = 0;
+    const parts: string[] = [];
+    let lastIndex = 0;
 
     let match: RegExpExecArray | null;
     while ((match = regex.exec(lowercaseText)) !== null) {
       const matchStart = match.index;
       const matchEnd = matchStart + match[0].length;
-      const originalWord = text.slice(matchStart + offset, matchEnd + offset);
+      const originalWord = text.slice(matchStart, matchEnd);
       const censoredWord = replacer(originalWord, matchStart, matchEnd);
-      result = result.slice(0, matchStart + offset) + censoredWord + result.slice(matchEnd + offset);
-      offset += censoredWord.length - originalWord.length;
+      parts.push(text.slice(lastIndex, matchStart), censoredWord);
+      lastIndex = matchEnd;
     }
 
-    return result;
+    if (lastIndex === 0) return text;
+    parts.push(text.slice(lastIndex));
+    return parts.join("");
   }
 
   /**
@@ -237,20 +243,35 @@ export class Profanity {
       throw new Error("At least one language must be provided");
     }
 
-    const uniqueLanguages = [...new Set(languages.map((language) => language.trim().toLowerCase()))];
-
-    const regexKey = uniqueLanguages.toSorted().join(",");
-    if (this.regexes.has(regexKey)) {
-      return this.regexes.get(regexKey)!;
+    const seen = new Set<string>();
+    const uniqueLanguages: string[] = [];
+    for (const language of languages) {
+      const normalized = language.trim().toLowerCase();
+      if (!seen.has(normalized)) {
+        seen.add(normalized);
+        uniqueLanguages.push(normalized);
+      }
     }
 
-    const allWords = uniqueLanguages.flatMap((language) => {
+    uniqueLanguages.sort();
+    const regexKey = uniqueLanguages.join(",");
+
+    const cached = this.regexes.get(regexKey);
+    if (cached) return cached;
+
+    const removedWords = this.removed.words;
+    const allWords: string[] = [];
+    for (const language of uniqueLanguages) {
       const words = profaneWords.get(language);
       if (!words) {
         throw new Error(`Invalid language: "${language}"`);
       }
-      return words.filter((word) => !this.removed.words.has(word));
-    });
+      for (const word of words) {
+        if (!removedWords.has(word)) {
+          allWords.push(word);
+        }
+      }
+    }
 
     const regex = this.buildRegex(allWords);
     this.regexes.set(regexKey, regex);

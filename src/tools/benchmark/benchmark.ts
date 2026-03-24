@@ -177,7 +177,7 @@ const startMainSuite = () =>
     .on("cycle", (event: Event) => {
       console.log(String(event.target));
     })
-    .on("complete", function () {
+    .on("complete", function (this: any) {
       console.log(`Fastest: ${this.filter("fastest").map("name")[0]}`);
     })
     .run({ async: true });
