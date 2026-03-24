@@ -2,11 +2,11 @@
 src/
 tests/
 .editorconfig
-.eslintcache
 .gitattributes
 .gitignore
 .nvmrc
 .prettierignore
 .prettierrc.json
-eslint.config.mjs
+.oxlintrc.json
 tsconfig.json
+vitest.config.ts

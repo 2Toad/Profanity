@@ -1,7 +1,6 @@
 .vscode
 dist
 node_modules
-.eslintcache
 .gitattributes
 .gitignore
 .npmignore
