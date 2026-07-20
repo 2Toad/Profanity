@@ -13,6 +13,7 @@
   "scripts": {
     "clean": "npx rimraf dist",
     "build": "npm run clean && npx tsc",
+    "prepare": "npm run build",
     "local": "npm run clean && nodemon src/index.ts",
     "pretest": "npm run build",
     "test": "vitest run",
